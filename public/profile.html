@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Perfil | RadarFinanciero</title>
+  <link rel="stylesheet" href="/assets/css/profile.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="profile-card">
+      <header class="profile-head">
+        <span class="profile-kicker">Perfil</span>
+        <h1>Mi Perfil</h1>
+        <p>Consulta tu información actual y actualiza los datos que usará RadarFinanciero en tu cuenta.</p>
+      </header>
+
+      <form id="profileForm">
+        <div class="grid-two">
+          <label>
+            Email
+            <div id="emailBox" class="readonly-box">Cargando...</div>
+          </label>
+
+          <label>
+            Nombre completo
+            <input id="fullNameInput" type="text" autocomplete="name" required />
+          </label>
+        </div>
+
+        <div class="grid-two">
+          <label>
+            URL del avatar
+            <input id="avatarUrlInput" type="url" placeholder="https://..." />
+          </label>
+
+          <label>
+            Moneda preferida
+            <input id="currencyInput" type="text" maxlength="3" placeholder="EUR" required />
+          </label>
+        </div>
+
+        <div class="grid-two">
+          <label>
+            Perfil de riesgo
+            <select id="riskProfileInput">
+              <option value="">Sin definir</option>
+              <option value="conservador">Conservador</option>
+              <option value="moderado">Moderado</option>
+              <option value="agresivo">Agresivo</option>
+            </select>
+          </label>
+
+          <label>
+            Ultima actualizacion
+            <div id="updatedAtBox" class="readonly-box">Sin datos</div>
+          </label>
+        </div>
+
+        <div id="errorBox" class="error"></div>
+        <div id="successBox" class="success"></div>
+
+        <div class="actions">
+          <span class="note">Los cambios se guardan en tu tabla `profiles` mediante `PUT /api/profile`.</span>
+          <div class="button-row">
+            <a class="link-btn secondary" href="/index.html">Volver al inicio</a>
+            <button id="saveBtn" class="primary" type="submit">Guardar cambios</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="/assets/js/auth-client.js"></script>
+  <script src="/assets/js/profile.js"></script>
+</body>
+</html>

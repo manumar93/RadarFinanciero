@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RadarFinanciero</title>
+  <link rel="stylesheet" href="/assets/css/index.css?v=20260324b" />
+</head>
+<body>
+  <div id="headerMount" aria-live="polite"></div>
+  <div id="authActionsMount" class="auth-header-actions" style="display:none;">
+    <a id="loginLink" class="top-login-btn" href="/login.html">Iniciar sesion</a>
+    <a id="registerLink" class="chip" href="/register.html">Crear cuenta</a>
+  </div>
+  <div class="layout-shell">
+  <div id="asideMount" aria-live="polite"></div>
+  <main class="container">
+    <section class="hero">
+      <h1>Radar Financiero de Fondos y ETFs</h1>
+      <p>
+        Compara en una sola vista instrumentos de perfil monetario, renta fija y renta variable.
+        Puedes usar tickers de fondos cotizados (ETF) o fondos negociados en mercado. La actualización es automática.
+      </p>
+
+      <div class="search-row">
+        <input id="searchInput" class="input" placeholder="Buscar ticker o nombre, ejemplo: vanguard bond" />
+        <button id="searchBtn" class="button" type="button">Buscar ticker</button>
+      </div>
+      <div id="searchResults" class="search-results"></div>
+
+      <div class="actions-row">
+        <button id="loadBtn" class="button" type="button">Cargar cotizaciones</button>
+      </div>
+
+      <div class="api-controls">
+        <select id="providerSelect" class="select" aria-label="Proveedor de datos">
+          <option value="auto">Fuente: Auto (fallback)</option>
+          <option value="finnhub">Solo Finnhub</option>
+          <option value="twelve">Solo Twelve Data</option>
+          <option value="compare">Comparar ambas</option>
+        </select>
+      </div>
+
+      <div class="auth-strip" aria-live="polite">
+        <div class="auth-strip-text">
+          <span id="authStatusTitle" class="auth-strip-title">Sesion no iniciada</span>
+          <span id="authStatusMeta" class="auth-strip-meta">Puedes entrar para activar perfil, carteras y favoritos persistentes.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="category-block" aria-label="Categorías principales">
+      <div class="top-nav-categories">
+        <button class="top-nav-btn" data-category-nav="money" type="button">Monetarios</button>
+        <button class="top-nav-btn" data-category-nav="bonds" type="button">Renta fija</button>
+        <button class="top-nav-btn" data-category-nav="mixed" type="button">Mixto defensivo</button>
+        <button class="top-nav-btn" data-category-nav="equity" type="button">Renta variable global</button>
+      </div>
+      <section id="topCategoryPanel" class="top-category-panel" aria-label="Opciones de categoría">
+        <div id="catMoney" class="category-options" aria-label="Monetarios"></div>
+        <div id="catBonds" class="category-options" aria-label="Renta fija"></div>
+        <div id="catMixed" class="category-options" aria-label="Mixto defensivo"></div>
+        <div id="catEquity" class="category-options" aria-label="Renta variable"></div>
+      </section>
+    </section>
+
+    <section class="stats" aria-live="polite">
+      <article class="stat">
+        <span class="stat-label">Instrumentos analizados</span>
+        <span id="countStat" class="stat-value">0</span>
+      </article>
+      <article class="stat">
+        <span class="stat-label">Mejor variación diaria</span>
+        <span id="bestStat" class="stat-value">-</span>
+      </article>
+      <article class="stat">
+        <span class="stat-label">Peor variación diaria</span>
+        <span id="worstStat" class="stat-value">-</span>
+      </article>
+      <article class="stat">
+        <span class="stat-label">Variación media diaria</span>
+        <span id="avgStat" class="stat-value">-</span>
+      </article>
+    </section>
+
+    <section class="heatmap-wrap">
+      <div id="heatmapGrid" class="heatmap-grid"></div>
+      <div class="pager">
+        <button id="prevPageBtn" class="chip" type="button">Anterior</button>
+        <span id="pageInfo" class="small selection-note">Página 0/0</span>
+        <button id="nextPageBtn" class="chip" type="button">Siguiente</button>
+      </div>
+      <div id="emptyState" class="empty">Selecciona tickers en los 4 desplegables o escríbelos manualmente para empezar.</div>
+    </section>
+    <section class="news-wrap" aria-label="Noticias del mercado">
+      <div class="news-head">
+        <h2 class="news-title">Noticias del mercado</h2>
+        <button class="chip" type="button">Ver todas</button>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <span class="news-source">Macro</span>
+          <h3>El mercado monetario mantiene flujos altos esta semana</h3>
+          <p>Los fondos de liquidez siguen captando entradas mientras cae la volatilidad intradía.</p>
+          <a class="news-link" href="#" aria-label="Abrir noticia macro">Abrir noticia</a>
+        </article>
+        <article class="news-card">
+          <span class="news-source">Renta fija</span>
+          <h3>Bonos intermedios reaccionan a expectativas de tipos</h3>
+          <p>La curva vuelve a moverse en el tramo medio y mejora el rendimiento relativo del segmento.</p>
+          <a class="news-link" href="#" aria-label="Abrir noticia de renta fija">Abrir noticia</a>
+        </article>
+        <article class="news-card">
+          <span class="news-source">ETFs</span>
+          <h3>Rotación sectorial impulsa los ETFs de calidad</h3>
+          <p>El sesgo defensivo gana fuerza y se observa un aumento de volumen en productos globales.</p>
+          <a class="news-link" href="#" aria-label="Abrir noticia de etfs">Abrir noticia</a>
+        </article>
+      </div>
+    </section>
+
+    <p class="small">Fuente de datos: Finnhub y Twelve Data (a traves de backend seguro). No es asesoramiento financiero.</p>
+  </main>
+  </div>
+
+  <script src="/assets/js/auth-client.js"></script>
+  <script src="/assets/js/index.js"></script>
+</body>
+</html>

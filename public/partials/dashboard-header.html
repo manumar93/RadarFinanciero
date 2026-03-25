@@ -1,0 +1,375 @@
+<!-- biome-ignore-all lint/a11y/noSvgWithoutTitle: <> -->
+<!-- biome-ignore-all lint/a11y/useIframeTitle: <> -->
+<!doctype html>
+<!-- dashboard-header.html COMPLETO -->
+<header
+  class="glass-effect sticky top-0 z-[10001] border-b border-gray-700"
+  style="z-index: 10001"
+>
+  <div
+    class="flex items-center justify-between px-4 md:px-6 py-4"
+    style="min-height: 72px"
+    id="header-principal"
+  >
+    <!-- Left Side -->
+    <div class="flex items-center space-x-4">
+      <button
+        type="button"
+        id="menuToggle"
+        class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-all duration-200"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
+      <div class="flex md:hidden items-center space-x-2">
+        <span class="text-white font-bold text-lg">RadarFinanciero</span>
+      </div>
+    </div>
+
+    <!-- Contador de Suscripción Gratuita -->
+    <!--
+      DOCUMENTACIÓN MERGE (rama-alvaro vs dev):
+      - Se adopta estructura moderna para evitar reflow (planNameHeader + contenedor fijo de días).
+      - Se mantiene compatibilidad con dashboard_layout.js (IDs actuales: planNameHeader, planNameSkeleton, daysCounter, upgradeBtnHeader).
+      - Referencia legacy conservada abajo en comentarios para trazabilidad del PR.
+    -->
+    <div
+      class="hidden lg:flex items-center space-x-3 px-6 rounded-xl glass-effect border border-gray-700 hover:border-blue-500 transition-colors duration-300"
+      style="min-height: 48px; visibility: hidden"
+      id="subscriptionInfoContainer"
+    >
+      <div class="flex items-center">
+        <div class="flex items-center space-x-1">
+          <!-- Nombre del plan con ancho mínimo fijo para evitar reflow -->
+          <p
+            id="planNameSkeleton"
+            class="seller-loading seller-loading-text inline-block w-24 h-3"
+          ></p>
+          <p
+            id="planNameHeader"
+            class="text-gray-400 text-xs font-semibold uppercase tracking-wide hidden"
+            style="min-width: 96px"
+          ></p>
+          <!-- Contenedor de tamaño fijo para el contador - posición relativa -->
+          <span
+            class="relative inline-flex items-center justify-center"
+            style="width: 70px; height: 32px"
+          >
+            <span
+              id="daysCounterSkeleton"
+              class="seller-loading seller-loading-text absolute inset-0 rounded"
+            ></span>
+            <!-- Rectángulo de fondo permanente -->
+            <span id="daysCounterBg" class="hidden"></span>
+            <!-- Número con animación de entrada suave -->
+            <span
+              id="daysCounter"
+              class="absolute inset-0 flex items-center justify-center text-2xl font-bold text-white opacity-0 transition-opacity duration-500 ease-in-out"
+              >30</span
+            >
+          </span>
+          <span
+            id="daysLabelSkeleton"
+            class="seller-loading seller-loading-text inline-block w-24 h-3"
+          ></span>
+          <span
+            id="daysLabelText"
+            class="text-gray-400 text-sm hidden"
+            style="min-width: 96px"
+            >días restantes</span
+          >
+
+          <!-- LEGACY (referencia histórica, no usar en runtime):
+          <p id="planNameText" class="hidden text-gray-400 text-xs font-semibold uppercase tracking-wide">Plan Gratuito</p>
+          <span id="daysCounterSkeleton" class="seller-loading seller-loading-text inline-block w-10 h-7"></span>
+          <span id="daysCounter" class="text-2xl font-bold text-white hidden">30</span>
+          <span id="daysLabelSkeleton" class="seller-loading seller-loading-text inline-block w-20 h-3"></span>
+          <span id="daysLabelText" class="text-gray-400 text-sm hidden">días restantes</span>
+          -->
+        </div>
+      </div>
+      <div
+        class="hidden xl:block w-0.5 h-10 bg-gradient-to-b from-transparent via-gray-600 to-transparent"
+      ></div>
+      <!-- Botón con visibility en lugar de display para evitar reflow -->
+      <button
+        type="button"
+        id="upgradeBtnHeader"
+        class="hidden xl:flex opacity-0 pointer-events-none px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white text-sm font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+        style="min-width: 110px"
+      >
+        Mejorar Plan
+      </button>
+    </div>
+
+    <!-- Right Side -->
+    <div class="flex items-center space-x-2 md:space-x-3">
+      <button
+        type="button"
+        id="newProductBtnDesktop"
+        class="hidden sm:flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-medium px-3 md:px-4 py-2 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg text-sm"
+      >
+        <svg
+          class="w-4 h-4 md:w-5 md:h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+        <span class="hidden md:inline">Nuevo Producto</span>
+        <span class="md:hidden">Nuevo</span>
+      </button>
+      <button
+        type="button"
+        id="newProductBtnMobile"
+        class="sm:hidden bg-gradient-to-r from-blue-600 to-blue-800 text-white p-2 rounded-lg"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+      </button>
+      <button
+        type="button"
+        id="searchHeaderBtn"
+        aria-label="Abrir buscador"
+        class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-all duration-200"
+      >
+        <svg
+          class="w-5 h-5 md:w-6 md:h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m21 21-4.35-4.35m1.85-5.15a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </button>
+      <!--  CAMPANITA DE NOTIFICACIONES -->
+      <div class="relative">
+        <button
+          type="button"
+          id="notificationBtn"
+          class="relative text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-all duration-200"
+        >
+          <svg
+            class="w-5 h-5 md:w-6 md:h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+            />
+          </svg>
+
+          <span
+            id="notificationBadge"
+            class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold"
+          >
+            0
+          </span>
+        </button>
+
+        <!-- Dropdown de Notificaciones -->
+        <div
+          id="notificationDropdown"
+          class="hidden absolute right-0 mt-2 w-80 rounded-xl shadow-2xl z-50 max-h-96 overflow-hidden"
+          style="background: #101a3c"
+        >
+          <div
+            class="p-4 border-b border-gray-700 flex justify-between items-center"
+          >
+            <h3 class="text-white font-semibold">Notificaciones</h3>
+            <button
+              type="button"
+              id="markAllReadBtn"
+              class="text-blue-400 text-sm hover:text-blue-300"
+            >
+              Marcar todo como leído
+            </button>
+          </div>
+          <div id="notificationList" class="overflow-y-auto max-h-64">
+            <div class="p-4 text-center text-gray-500">Cargando...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="relative">
+        <button
+          type="button"
+          id="messagesToggleSeller"
+          class="relative text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-all duration-200"
+        >
+          <svg
+            class="w-5 h-5 md:w-6 md:h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            />
+          </svg>
+          <span
+            id="messagesBadgeSeller"
+            class="hidden absolute top-1 right-1 bg-blue-600 text-white text-xs w-4 h-4 md:w-5 md:h-5 rounded-full flex items-center justify-center font-bold text-[10px]"
+          ></span>
+        </button>
+        <div
+          id="messagesDropdownSeller"
+          class="hidden absolute right-0 mt-2 w-80 rounded-xl shadow-2xl z-50 border border-gray-700"
+          style="background: #101a3c"
+        >
+          <div id="messagesListSeller">
+            <div class="p-4 text-center text-gray-500">
+              No tienes mensajes pendientes...
+            </div>
+          </div>
+          <div class="border-t border-gray-700">
+            <a
+              href="/seller/chatSeller.html"
+              class="block text-center px-4 py-2 text-blue-400 hover:text-blue-300 hover:bg-gray-800 text-sm font-medium"
+            >
+              Ir a mensajes →
+            </a>
+          </div>
+        </div>
+        <template id="messageItemTemplateSeller">
+          <div class="px-4 py-3 border-b border-gray-700 hover:bg-gray-800">
+            <p class="msg-from text-white text-sm font-medium truncate"></p>
+            <p class="msg-text text-gray-400 text-xs truncate"></p>
+          </div>
+        </template>
+      </div>
+
+      <!-- Contenedor de usuario con tamaño fijo para evitar reflow -->
+      <!--
+        DOCUMENTACIÓN MERGE:
+        - Se usa skeleton simplificado con tamaño fijo para evitar saltos de layout.
+        - El bloque real se muestra cuando dashboard_layout.js carga datos de usuario.
+      -->
+      <div class="relative" style="min-width: 48px; min-height: 40px">
+        <!-- Skeleton de usuario - MISMO contenido visible que el real -->
+        <div
+          id="userBlockSkeleton"
+          class="absolute inset-0 flex items-center space-x-2 p-1 md:p-2"
+        >
+          <div class="seller-loading seller-loading-avatar flex-shrink-0"></div>
+          <!-- Flecha skeleton igual que la real -->
+          <div
+            class="seller-loading seller-loading-text w-4 h-4 rounded hidden md:block"
+          ></div>
+        </div>
+        <!-- LEGACY (referencia histórica):
+        <div id="userBlockSkeleton" class="flex items-center space-x-2">
+          <div class="seller-loading seller-loading-avatar"></div>
+          <div class="flex flex-col space-y-1">
+            <div class="seller-loading seller-loading-text w-20 h-3"></div>
+            <div class="seller-loading seller-loading-text w-28 h-2"></div>
+          </div>
+        </div>
+        -->
+        <!-- Bloque real de usuario oculto hasta tener datos -->
+        <div id="userBlock" class="absolute inset-0 hidden">
+          <button
+            type="button"
+            id="userDropdownToggle"
+            class="flex items-center space-x-2 text-gray-400 hover:text-white p-1 md:p-2 rounded-lg hover:bg-gray-800 transition-all duration-300 transform hover:scale-105"
+          >
+            <img
+              id="userAvatar"
+              src="https://ztbfivoqhdhipinpwijm.supabase.co/storage/v1/object/public/files_system/default-avatar.svg"
+              alt="Avatar"
+              class="w-8 h-8 rounded-full ring-2 ring-gray-700"
+            />
+            <svg
+              class="w-4 h-4 hidden md:block"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+          <div
+            id="dropdownMenu"
+            class="hidden absolute right-0 mt-2 w-56 rounded-xl shadow-2xl transition-all duration-300 z-50"
+            style="background: #101a3c"
+          >
+            <div class="p-4 border-b border-gray-700">
+              <p id="userName" class="text-white font-semibold">Juan Pérez</p>
+              <p id="userEmail" class="text-gray-400 text-sm">juan@email.com</p>
+            </div>
+            <div class="py-2">
+              <a
+                href="/profile.html"
+                class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors duration-200"
+              >
+                👤 Mi Perfil
+              </a>
+              <a
+                href="/seller/billing_and_withdrawal.html"
+                class="block px-4 py-2 text-gray-300 hover:bg-gray-800 hover:text-white transition-colors duration-200"
+                >💳 Facturación</a
+              >
+              <div class="border-t border-gray-700 my-2"></div>
+              <a
+                href="#"
+                id="logoutBtnHeader"
+                class="block px-4 py-2 text-red-400 hover:bg-red-900 hover:bg-opacity-30 transition-colors duration-200"
+                >🚪 Cerrar Sesión</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    id="mobileSearch"
+    class="hidden lg:hidden border-t border-gray-700 p-4"
+  ></div>
+</header>

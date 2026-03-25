@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar Sesion | RadarFinanciero</title>
+  <link rel="stylesheet" href="/assets/css/login.css" />
+</head>
+<body>
+  <section class="auth-shell">
+    <div class="auth-panel">
+      <span class="badge" aria-hidden="true">
+        <span class="fs-mark"><span class="fs-mark-dot"></span></span>
+      </span>
+      <h1>Iniciar sesion</h1>
+      <p>Accede a tu cuenta para guardar carteras, favoritos y consultar tu perfil.</p>
+
+      <form id="loginForm">
+        <label>
+          Email
+          <input id="emailInput" type="email" autocomplete="email" required />
+        </label>
+        <label>
+          Contrasena
+          <input id="passwordInput" type="password" autocomplete="current-password" required />
+        </label>
+        <div class="actions">
+          <button class="primary" type="submit">Entrar</button>
+          <button class="secondary" type="button" id="goHomeBtn">Volver al inicio</button>
+        </div>
+      </form>
+
+      <div id="errorBox" class="error"></div>
+      <div id="successBox" class="success"></div>
+
+      <div class="small-links">
+        <a href="/register.html">Crear cuenta</a>
+        <a href="/index.html">Ir al panel publico</a>
+      </div>
+    </div>
+
+    <aside class="auth-brand">
+      <div>
+        <span class="badge" aria-hidden="true">
+          <span class="fs-mark alt"><span class="fs-mark-dot"></span></span>
+        </span>
+      </div>
+      <div>
+        <h2>Tu radar de fondos en un solo sitio</h2>
+        <p>El login te permitira persistir favoritos y carteras en Supabase, no solo en el navegador.</p>
+      </div>
+    </aside>
+  </section>
+
+  <script src="/assets/js/auth-client.js"></script>
+  <script src="/assets/js/login.js"></script>
+</body>
+</html>
