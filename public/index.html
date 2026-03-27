@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RadarFinanciero</title>
-  <link rel="stylesheet" href="/assets/css/index.css?v=20260324b" />
+  <link rel="stylesheet" href="/assets/css/index.css?v=20260325a" />
 </head>
 <body>
   <div id="headerMount" aria-live="polite"></div>
@@ -16,21 +16,35 @@
   <div id="asideMount" aria-live="polite"></div>
   <main class="container">
     <section class="hero">
+      <div class="hero-topline">
+        <span class="hero-eyebrow">Trading Desk Premium</span>
+        <span class="hero-status">Radar activo</span>
+      </div>
       <h1>Radar Financiero de Fondos y ETFs</h1>
       <p>
         Compara en una sola vista instrumentos de perfil monetario, renta fija y renta variable.
         Puedes usar tickers de fondos cotizados (ETF) o fondos negociados en mercado. La actualización es automática.
       </p>
+      <div class="hero-metrics" aria-hidden="true">
+        <article class="hero-metric">
+          <span class="hero-metric-label">Modo</span>
+          <strong>Realtime View</strong>
+        </article>
+        <article class="hero-metric">
+          <span class="hero-metric-label">Cobertura</span>
+          <strong>Fondos + ETFs</strong>
+        </article>
+        <article class="hero-metric">
+          <span class="hero-metric-label">Cuenta</span>
+          <strong>Cloud Sync</strong>
+        </article>
+      </div>
 
       <div class="search-row">
         <input id="searchInput" class="input" placeholder="Buscar ticker o nombre, ejemplo: vanguard bond" />
         <button id="searchBtn" class="button" type="button">Buscar ticker</button>
       </div>
       <div id="searchResults" class="search-results"></div>
-
-      <div class="actions-row">
-        <button id="loadBtn" class="button" type="button">Cargar cotizaciones</button>
-      </div>
 
       <div class="api-controls">
         <select id="providerSelect" class="select" aria-label="Proveedor de datos">

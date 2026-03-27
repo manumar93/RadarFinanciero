@@ -1,14 +1,18 @@
 :root {
-  --bg-1: #eef6f1;
-  --bg-2: #d9e9df;
-  --ink: #102319;
-  --muted: #51695d;
-  --card: rgba(255, 255, 255, 0.92);
-  --line: #c9ddd0;
-  --accent: #0f7a4d;
-  --accent-2: #0f5e7a;
-  --bad: #b23b3b;
-  --shadow: 0 18px 50px rgba(16, 35, 25, 0.14);
+  --bg-1: #040b12;
+  --bg-2: #08131d;
+  --bg-3: #0d1d29;
+  --ink: #eef7ff;
+  --muted: #93a8bb;
+  --card: rgba(7, 15, 24, 0.78);
+  --card-2: rgba(10, 22, 34, 0.92);
+  --line: rgba(110, 156, 191, 0.22);
+  --accent: #16f2a5;
+  --accent-2: #29b6ff;
+  --accent-3: #0bffcc;
+  --bad: #ff7272;
+  --good: #7cf7bc;
+  --shadow: 0 32px 90px rgba(0, 0, 0, 0.48);
 }
 
 * {
@@ -21,9 +25,10 @@ body {
   font-family: "Avenir Next", "Segoe UI", sans-serif;
   color: var(--ink);
   background:
-    radial-gradient(circle at 15% 15%, rgba(15, 122, 77, 0.14), transparent 28%),
-    radial-gradient(circle at 85% 20%, rgba(15, 94, 122, 0.16), transparent 30%),
-    linear-gradient(145deg, var(--bg-1), var(--bg-2));
+    radial-gradient(circle at 14% 18%, rgba(22, 242, 165, 0.16), transparent 26%),
+    radial-gradient(circle at 82% 16%, rgba(41, 182, 255, 0.18), transparent 24%),
+    radial-gradient(circle at 50% 84%, rgba(17, 65, 102, 0.32), transparent 34%),
+    linear-gradient(145deg, var(--bg-1), var(--bg-2) 46%, var(--bg-3));
   display: grid;
   place-items: center;
   padding: 24px;
@@ -33,30 +38,53 @@ body {
   width: min(960px, 100%);
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  border: 1px solid rgba(125, 164, 144, 0.28);
+  border: 1px solid rgba(105, 154, 190, 0.2);
   border-radius: 28px;
   overflow: hidden;
   background: var(--card);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(18px);
+  position: relative;
+}
+
+.auth-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.05), transparent 25%),
+    linear-gradient(180deg, rgba(22, 242, 165, 0.04), transparent 35%);
+  pointer-events: none;
 }
 
 .auth-panel {
   padding: 42px;
   background:
-    radial-gradient(circle at 0% 0%, rgba(15, 122, 77, 0.12), transparent 32%),
-    linear-gradient(160deg, rgba(255, 255, 255, 0.94), rgba(239, 248, 243, 0.92));
+    radial-gradient(circle at 0% 0%, rgba(22, 242, 165, 0.14), transparent 30%),
+    linear-gradient(180deg, rgba(8, 19, 29, 0.9), rgba(5, 12, 20, 0.95));
+  border-right: 1px solid rgba(104, 154, 191, 0.14);
 }
 
 .auth-brand {
   padding: 42px;
   background:
-    radial-gradient(circle at 75% 20%, rgba(255, 255, 255, 0.16), transparent 30%),
-    linear-gradient(160deg, #113728, #0e5f4f 54%, #114766);
-  color: #f2faf5;
+    radial-gradient(circle at 75% 22%, rgba(41, 182, 255, 0.28), transparent 24%),
+    radial-gradient(circle at 28% 82%, rgba(22, 242, 165, 0.16), transparent 30%),
+    linear-gradient(160deg, #08131d, #0d2535 54%, #12334a);
+  color: #f2fbff;
   display: grid;
   align-content: space-between;
   gap: 24px;
+  position: relative;
+}
+
+.auth-brand::after {
+  content: "";
+  position: absolute;
+  inset: 22px;
+  border: 1px solid rgba(154, 213, 255, 0.1);
+  border-radius: 24px;
+  pointer-events: none;
 }
 
 .badge {
@@ -66,8 +94,10 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
   padding: 6px;
+  border: 1px solid rgba(154, 213, 255, 0.12);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .fs-mark {
@@ -76,7 +106,7 @@ body {
   height: 100%;
   border-radius: 10px;
   overflow: hidden;
-  background: linear-gradient(145deg, #146f63, #0f5e7a);
+  background: linear-gradient(145deg, #0ebf89, #1f87ff);
 }
 
 .fs-mark::before,
@@ -107,23 +137,71 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 999px;
-  background: #d9fff1;
-  box-shadow: 0 0 0 2px rgba(217, 255, 241, 0.18);
+  background: #dbfff5;
+  box-shadow: 0 0 0 2px rgba(219, 255, 245, 0.14);
 }
 
 .fs-mark.alt {
-  background: linear-gradient(145deg, #0f5e7a, #146f63);
+  background: linear-gradient(145deg, #1f87ff, #0ebf89);
+}
+
+.panel-topline,
+.brand-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.eyebrow,
+.panel-status,
+.brand-chip,
+.metric-label {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.eyebrow,
+.brand-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.eyebrow {
+  color: var(--accent);
+  background: rgba(22, 242, 165, 0.1);
+  border: 1px solid rgba(22, 242, 165, 0.18);
+}
+
+.panel-status {
+  color: #bfd8ec;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.brand-chip {
+  color: #eaf7ff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 h1 {
-  margin: 0 0 10px;
+  margin: 18px 0 10px;
   font-size: clamp(2rem, 3vw, 3rem);
   line-height: 1.03;
+  letter-spacing: -0.04em;
 }
 
 h2 {
   margin: 0 0 10px;
   line-height: 1.08;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  letter-spacing: -0.03em;
 }
 
 p {
@@ -132,7 +210,7 @@ p {
 }
 
 .auth-brand p {
-  color: rgba(242, 250, 245, 0.82);
+  color: rgba(234, 245, 255, 0.78);
 }
 
 form {
@@ -146,6 +224,7 @@ label {
   gap: 8px;
   font-size: 0.95rem;
   font-weight: 700;
+  color: #dceaf6;
 }
 
 input {
@@ -154,13 +233,15 @@ input {
   border-radius: 14px;
   padding: 14px 15px;
   font: inherit;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(11, 24, 36, 0.92);
   color: var(--ink);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 input:focus {
-  outline: 2px solid rgba(15, 122, 77, 0.2);
-  border-color: var(--accent);
+  outline: 2px solid rgba(22, 242, 165, 0.12);
+  border-color: rgba(22, 242, 165, 0.72);
+  box-shadow: 0 0 0 4px rgba(22, 242, 165, 0.08);
 }
 
 button {
@@ -173,14 +254,14 @@ button {
 }
 
 .primary {
-  color: #fff;
+  color: #041018;
   background: linear-gradient(145deg, var(--accent), var(--accent-2));
-  box-shadow: 0 14px 24px rgba(15, 94, 122, 0.24);
+  box-shadow: 0 16px 28px rgba(18, 181, 243, 0.22);
 }
 
 .secondary {
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.76);
+  color: #dceaf6;
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--line);
 }
 
@@ -205,13 +286,15 @@ button {
 }
 
 .error {
-  background: rgba(178, 59, 59, 0.1);
+  background: rgba(255, 114, 114, 0.12);
   color: var(--bad);
+  border: 1px solid rgba(255, 114, 114, 0.18);
 }
 
 .success {
-  background: rgba(30, 142, 62, 0.12);
-  color: #216537;
+  background: rgba(124, 247, 188, 0.12);
+  color: var(--good);
+  border: 1px solid rgba(124, 247, 188, 0.18);
 }
 
 .small-links {
@@ -223,7 +306,39 @@ button {
 }
 
 a {
-  color: inherit;
+  color: #dbeeff;
+}
+
+.brand-copy {
+  display: grid;
+  gap: 10px;
+}
+
+.brand-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metric-card {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(154, 213, 255, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.metric-card strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+}
+
+.metric-label {
+  color: rgba(191, 216, 236, 0.74);
+  font-size: 0.68rem;
+  font-weight: 700;
 }
 
 @media (max-width: 860px) {
@@ -239,5 +354,17 @@ a {
   .auth-panel,
   .auth-brand {
     padding: 28px;
+  }
+
+  .brand-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .panel-topline,
+  .brand-top {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

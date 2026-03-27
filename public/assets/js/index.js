@@ -381,9 +381,30 @@ function adjustHeaderOffset() {
   document.documentElement.style.setProperty("--header-h", `${navHeight}px`);
 }
 
+function placeAuthActions() {
+  if (!authActionsMount) return;
+  const sidebar = document.getElementById("sidebar");
+  const sidebarContent = sidebar?.querySelector(".flex.flex-col.h-full");
+  const headerActionsHost = document.querySelector("#header-principal > div:last-child");
+  const isDesktop = window.innerWidth > 920;
+
+  if (isDesktop && headerActionsHost) {
+    headerActionsHost.appendChild(authActionsMount);
+    return;
+  }
+
+  if (sidebarContent) {
+    sidebarContent.appendChild(authActionsMount);
+  }
+}
+
 async function refreshAuthStrip() {
   const authPayload = await window.FundRadarAuth.fetchCurrentUser();
   const logoutBtn = document.getElementById("logoutBtn");
+  const logoutBtnHeader = document.getElementById("logoutBtnHeader");
+  const userBlock = document.getElementById("userBlock");
+  const userBlockSkeleton = document.getElementById("userBlockSkeleton");
+  const subscriptionInfoContainer = document.getElementById("subscriptionInfoContainer");
   if (!authPayload?.user) {
     window.__FUND_RADAR_AUTH__ = null;
     authStatusTitle.textContent = "Sesion no iniciada";
@@ -393,6 +414,11 @@ async function refreshAuthStrip() {
     loginLink.hidden = false;
     registerLink.hidden = false;
     if (logoutBtn) logoutBtn.hidden = true;
+    if (logoutBtnHeader) logoutBtnHeader.hidden = true;
+    if (userBlock) userBlock.classList.add("hidden");
+    if (userBlockSkeleton) userBlockSkeleton.classList.add("hidden");
+    if (subscriptionInfoContainer) subscriptionInfoContainer.style.visibility = "visible";
+    placeAuthActions();
     return;
   }
 
@@ -407,6 +433,11 @@ async function refreshAuthStrip() {
   loginLink.hidden = true;
   registerLink.hidden = true;
   if (logoutBtn) logoutBtn.hidden = false;
+  if (logoutBtnHeader) logoutBtnHeader.hidden = false;
+  if (userBlockSkeleton) userBlockSkeleton.classList.add("hidden");
+  if (userBlock) userBlock.classList.remove("hidden");
+  if (subscriptionInfoContainer) subscriptionInfoContainer.style.visibility = "visible";
+  placeAuthActions();
 }
 
 async function loadDashboardChrome() {
@@ -432,13 +463,7 @@ async function loadDashboardChrome() {
     })
   );
 
-  const sidebar = document.getElementById("sidebar");
-  if (authActionsMount && sidebar) {
-    const sidebarContent = sidebar.querySelector(".flex.flex-col.h-full");
-    if (sidebarContent) {
-      sidebarContent.appendChild(authActionsMount);
-    }
-  }
+  placeAuthActions();
 
   initDashboardChrome();
   adjustHeaderOffset();
@@ -490,14 +515,17 @@ function initDashboardChrome() {
   });
 
   const logoutBtn = document.getElementById("logoutBtn");
+  const logoutBtnHeader = document.getElementById("logoutBtnHeader");
   const logoutDialog = document.getElementById("logoutDialog");
   const logoutDialogBackdrop = document.getElementById("logoutDialogBackdrop");
   const logoutCancel = document.getElementById("logoutCancel");
   const logoutOk = document.getElementById("logoutOk");
-  logoutBtn?.addEventListener("click", (event) => {
+  const handleLogoutIntent = (event) => {
     event.preventDefault();
     logoutDialog?.showModal?.();
-  });
+  };
+  logoutBtn?.addEventListener("click", handleLogoutIntent);
+  logoutBtnHeader?.addEventListener("click", handleLogoutIntent);
   logoutDialogBackdrop?.addEventListener("click", () => logoutDialog?.close());
   logoutCancel?.addEventListener("click", () => logoutDialog?.close());
   logoutOk?.addEventListener("click", async () => {
@@ -536,6 +564,17 @@ function initDashboardChrome() {
     messagesList.innerHTML =
       '<div class="p-4 text-sm" style="color:#cbd5e1;">Sin mensajes pendientes.</div>';
   }
+
+  const userDropdownToggle = document.getElementById("userDropdownToggle");
+  const dropdownMenu = document.getElementById("dropdownMenu");
+  userDropdownToggle?.addEventListener("click", () => {
+    dropdownMenu?.classList.toggle("hidden");
+  });
+  document.addEventListener("click", (event) => {
+    if (!dropdownMenu || !userDropdownToggle) return;
+    if (dropdownMenu.contains(event.target) || userDropdownToggle.contains(event.target)) return;
+    dropdownMenu.classList.add("hidden");
+  });
 }
 
 function initCategoryDropdowns() {
@@ -723,6 +762,7 @@ function renderHeatmap() {
     const sparkline = buildSparklinePoints(row);
     const tile = document.createElement("article");
     tile.className = "heat-tile";
+    tile.dataset.symbol = symbol;
     tile.style.setProperty("--tile-accent", colorForPerformance(pct));
     tile.style.animationDelay = `${Math.min(idx * 0.02, 0.35)}s`;
     tile.innerHTML = `
@@ -766,8 +806,10 @@ async function fetchQuotes(symbols, forcedProvider = null) {
   }
   saveSettings();
   try {
-    loadBtn.disabled = true;
-    loadBtn.textContent = "Cargando...";
+    if (loadBtn) {
+      loadBtn.disabled = true;
+      loadBtn.textContent = "Cargando...";
+    }
     const provider = forcedProvider || providerSelect.value;
     const chunks = chunkSymbols(symbols, MAX_SYMBOLS_PER_BATCH);
     const mergedRows = [];
@@ -801,8 +843,10 @@ async function fetchQuotes(symbols, forcedProvider = null) {
     emptyState.style.display = "block";
     emptyState.textContent = `No se pudo cargar la cotización: ${err.message}. Revisa que estés en http://localhost:3000 y prueba 'Fuente: Auto'.`;
   } finally {
-    loadBtn.disabled = false;
-    loadBtn.textContent = "Cargar cotizaciones";
+    if (loadBtn) {
+      loadBtn.disabled = false;
+      loadBtn.textContent = "Cargar cotizaciones";
+    }
   }
 }
 
@@ -860,7 +904,7 @@ function runFromInput() {
   fetchQuotes(symbols);
 }
 
-loadBtn.addEventListener("click", runFromInput);
+loadBtn?.addEventListener("click", runFromInput);
 searchBtn.addEventListener("click", searchTickers);
 searchInput.addEventListener("keydown", (ev) => {
   if (ev.key === "Enter") searchTickers();
@@ -909,16 +953,24 @@ searchResults.addEventListener("click", (ev) => {
 });
 heatmapGrid.addEventListener("click", (ev) => {
   const btn = ev.target.closest("button[data-favorite-symbol]");
-  if (!btn) return;
-  const symbol = (btn.dataset.favoriteSymbol || "").toUpperCase();
-  if (!symbol) return;
-  if (favoriteSymbols.has(symbol)) {
-    favoriteSymbols.delete(symbol);
-  } else {
-    favoriteSymbols.add(symbol);
+  if (btn) {
+    const symbol = (btn.dataset.favoriteSymbol || "").toUpperCase();
+    if (!symbol) return;
+    if (favoriteSymbols.has(symbol)) {
+      favoriteSymbols.delete(symbol);
+    } else {
+      favoriteSymbols.add(symbol);
+    }
+    saveSettings();
+    renderHeatmap();
+    return;
   }
-  saveSettings();
-  renderHeatmap();
+
+  const tile = ev.target.closest(".heat-tile");
+  const symbol = (tile?.dataset.symbol || "").toUpperCase();
+  if (!symbol) return;
+  selectedSymbols = [symbol];
+  fetchQuotes([symbol]);
 });
 
 prevPageBtn.addEventListener("click", () => {
@@ -933,8 +985,11 @@ nextPageBtn.addEventListener("click", () => {
 loadSettings();
 initCategoryDropdowns();
 adjustHeaderOffset();
-refreshAuthStrip().then(() => loadDashboardChrome());
-window.addEventListener("resize", adjustHeaderOffset);
+loadDashboardChrome().then(() => refreshAuthStrip());
+window.addEventListener("resize", () => {
+  placeAuthActions();
+  adjustHeaderOffset();
+});
 selectedSymbols = [];
 if (window.location.protocol === "file:") {
   emptyState.style.display = "block";

@@ -10,9 +10,26 @@
   <main class="page-shell">
     <section class="profile-card">
       <header class="profile-head">
-        <span class="profile-kicker">Perfil</span>
+        <div class="profile-topline">
+          <span class="profile-kicker">Perfil</span>
+          <span class="profile-status">Cuenta activa</span>
+        </div>
         <h1>Mi Perfil</h1>
         <p>Consulta tu información actual y actualiza los datos que usará RadarFinanciero en tu cuenta.</p>
+        <div class="profile-metrics" aria-hidden="true">
+          <article class="metric-card">
+            <span class="metric-label">Estado</span>
+            <strong>Sincronizado</strong>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">Perfil</span>
+            <strong>Editable</strong>
+          </article>
+          <article class="metric-card">
+            <span class="metric-label">Datos</span>
+            <strong>Supabase</strong>
+          </article>
+        </div>
       </header>
 
       <form id="profileForm">

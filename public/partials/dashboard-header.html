@@ -37,13 +37,6 @@
       </div>
     </div>
 
-    <!-- Contador de Suscripción Gratuita -->
-    <!--
-      DOCUMENTACIÓN MERGE (rama-alvaro vs dev):
-      - Se adopta estructura moderna para evitar reflow (planNameHeader + contenedor fijo de días).
-      - Se mantiene compatibilidad con dashboard_layout.js (IDs actuales: planNameHeader, planNameSkeleton, daysCounter, upgradeBtnHeader).
-      - Referencia legacy conservada abajo en comentarios para trazabilidad del PR.
-    -->
     <div
       class="hidden lg:flex items-center space-x-3 px-6 rounded-xl glass-effect border border-gray-700 hover:border-blue-500 transition-colors duration-300"
       style="min-height: 48px; visibility: hidden"
@@ -340,8 +333,8 @@
             style="background: #101a3c"
           >
             <div class="p-4 border-b border-gray-700">
-              <p id="userName" class="text-white font-semibold">Juan Pérez</p>
-              <p id="userEmail" class="text-gray-400 text-sm">juan@email.com</p>
+              <p id="userName" class="text-white font-semibold"></p>
+              <p id="userEmail" class="text-gray-400 text-sm"></p>
             </div>
             <div class="py-2">
               <a
