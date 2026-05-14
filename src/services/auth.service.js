@@ -86,6 +86,7 @@ async function loginUser({ email, password }) {
   return {
     user: sanitizeAuthUser(data.user),
     session: data.session,
+    profile: await getProfileByUserId(data.user.id),
   };
 }
 

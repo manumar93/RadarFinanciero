@@ -110,6 +110,58 @@ async function updateProfile(payload) {
   });
 }
 
+async function fetchPortfolios() {
+  return apiRequest("/api/portfolios");
+}
+
+async function createPortfolio(payload) {
+  return apiRequest("/api/portfolios", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+async function updatePortfolio(id, payload) {
+  return apiRequest(`/api/portfolios/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+}
+
+async function deletePortfolio(id) {
+  return apiRequest(`/api/portfolios/${id}`, { method: "DELETE" });
+}
+
+async function fetchPortfolioItems(portfolioId) {
+  return apiRequest(`/api/portfolios/${portfolioId}/items`);
+}
+
+async function addPortfolioItem(portfolioId, payload) {
+  return apiRequest(`/api/portfolios/${portfolioId}/items`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+async function removePortfolioItem(portfolioId, itemId) {
+  return apiRequest(`/api/portfolios/${portfolioId}/items/${itemId}`, { method: "DELETE" });
+}
+
+async function fetchFavorites() {
+  return apiRequest("/api/favorites");
+}
+
+async function addFavorite(payload) {
+  return apiRequest("/api/favorites", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+async function removeFavorite(id) {
+  return apiRequest(`/api/favorites/${id}`, { method: "DELETE" });
+}
+
 const authClient = {
   saveAuthSession,
   getAuthSession,
@@ -121,6 +173,16 @@ const authClient = {
   fetchCurrentUser,
   fetchProfile,
   updateProfile,
+  fetchPortfolios,
+  createPortfolio,
+  updatePortfolio,
+  deletePortfolio,
+  fetchPortfolioItems,
+  addPortfolioItem,
+  removePortfolioItem,
+  fetchFavorites,
+  addFavorite,
+  removeFavorite,
 };
 
 window.FundRadarAuth = authClient;

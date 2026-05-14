@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis Favoritos | RadarFinanciero</title>
+  <link rel="icon" type="image/png" href="/assets/images/logo.png?v=20260514" />
+  <link rel="shortcut icon" type="image/png" href="/assets/images/logo.png?v=20260514" />
+  <link rel="stylesheet" href="/assets/css/favorites.css" />
+</head>
+<body>
+  <main class="page-shell">
+
+    <section class="main-card">
+      <header class="card-head">
+        <div class="card-topline">
+          <span class="kicker">Favoritos</span>
+          <a class="link-btn btn-secondary" href="/index.html">← Volver al inicio</a>
+        </div>
+        <h1>Mis Favoritos</h1>
+        <p>Guarda los instrumentos que más sigues para tenerlos siempre a mano.</p>
+      </header>
+
+      <div class="card-body">
+        <div id="errorBox" class="error"></div>
+        <div id="successBox" class="success"></div>
+
+
+        <!-- Buscador -->
+        <div class="search-row">
+          <input id="searchFavorites" type="text" placeholder="Buscar ticker o nombre, ejemplo: vanguard bond" autocomplete="off" />
+          <button id="searchBtn" class="btn-primary" type="button">Buscar</button>
+        </div>
+        <div id="searchResults" class="search-results"></div>
+
+        <!-- Lista -->
+        <div id="favoritesList" class="items-list">
+          <p class="empty-state">Cargando...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <dialog id="detailModal">
+    <div id="detailModalBackdrop" class="detail-modal-backdrop"></div>
+    <div class="detail-modal-card">
+      <div class="detail-modal-head">
+        <div>
+          <div class="detail-symbol-row">
+            <span id="detailSymbol" class="detail-symbol"></span>
+            <span id="detailExchange" class="detail-exchange-badge"></span>
+          </div>
+          <p id="detailName" class="detail-name"></p>
+        </div>
+        <button id="detailClose" class="detail-close" type="button" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="detail-modal-body">
+        <div class="detail-metrics">
+          <div class="detail-metric">
+            <span class="detail-metric-label">Precio</span>
+            <strong id="detailPrice">—</strong>
+          </div>
+          <div class="detail-metric">
+            <span class="detail-metric-label">Variación día</span>
+            <strong id="detailChange">—</strong>
+          </div>
+          <div class="detail-metric">
+            <span class="detail-metric-label">Máximo día</span>
+            <strong id="detailHigh">—</strong>
+          </div>
+          <div class="detail-metric">
+            <span class="detail-metric-label">Mínimo día</span>
+            <strong id="detailLow">—</strong>
+          </div>
+        </div>
+        <p id="detailSource" class="detail-source"></p>
+      </div>
+      <div class="detail-modal-foot">
+        <button id="detailRemoveBtn" class="detail-remove-btn" type="button">Eliminar de favoritos</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="/assets/js/auth-client.js"></script>
+  <script src="/assets/js/favorites.js"></script>
+</body>
+</html>

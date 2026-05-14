@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Cartera | RadarFinanciero</title>
+  <link rel="icon" type="image/png" href="/assets/images/logo.png?v=20260514" />
+  <link rel="shortcut icon" type="image/png" href="/assets/images/logo.png?v=20260514" />
+  <link rel="stylesheet" href="/assets/css/portfolio.css" />
+</head>
+<body>
+  <main class="page-shell">
+
+    <!-- Header card -->
+    <section class="main-card">
+      <header class="card-head">
+        <div class="card-topline">
+          <span class="kicker">Carteras</span>
+          <a class="link-btn btn-secondary" href="/index.html">← Volver al inicio</a>
+        </div>
+        <h1>Mi Cartera</h1>
+        <p>Crea y organiza tus carteras de inversión. Cada cartera puede contener diferentes instrumentos.</p>
+      </header>
+
+      <div class="card-body">
+        <div id="errorBox" class="error"></div>
+        <div id="successBox" class="success"></div>
+
+        <!-- Formulario crear -->
+        <div class="create-form">
+          <h2>Nueva cartera</h2>
+          <div class="field-row">
+            <label>
+              Nombre <span style="color:var(--bad)">*</span>
+              <input id="newName" type="text" placeholder="Ej: Cartera conservadora" maxlength="80" />
+            </label>
+            <label>
+              Descripción
+              <input id="newDesc" type="text" placeholder="Opcional" maxlength="200" />
+            </label>
+          </div>
+          <div class="form-actions">
+            <button id="createBtn" class="btn-primary" type="button">Crear cartera</button>
+          </div>
+        </div>
+
+        <!-- Lista -->
+        <div id="portfolioList" class="items-list">
+          <p class="empty-state">Cargando...</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal editar -->
+  <dialog id="editDialog">
+    <div id="editBackdrop" style="position:fixed;inset:0;background:rgba(0,0,0,0.6);"></div>
+    <div style="position:relative;z-index:1;background:#0d1d29;border:1px solid rgba(110,156,191,0.22);border-radius:24px;padding:28px;width:min(480px,90vw);margin:auto;">
+      <h2 style="margin:0 0 20px;font-size:1.1rem;">Editar cartera</h2>
+      <input type="hidden" id="editId" />
+      <div class="create-form" style="border:none;padding:0;background:none;">
+        <div class="field-row">
+          <label>
+            Nombre <span style="color:var(--bad)">*</span>
+            <input id="editName" type="text" maxlength="80" />
+          </label>
+          <label>
+            Descripción
+            <input id="editDesc" type="text" maxlength="200" />
+          </label>
+        </div>
+      </div>
+      <div class="form-actions" style="margin-top:20px;">
+        <button id="editCancel" class="btn-secondary" type="button">Cancelar</button>
+        <button id="editSave" class="btn-primary" type="button">Guardar cambios</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Portfolio detail modal -->
+  <dialog id="portfolioModal">
+    <div id="portfolioModalBackdrop" class="modal-backdrop"></div>
+    <div class="portfolio-modal-card">
+      <div class="portfolio-modal-head">
+        <div class="portfolio-modal-title">
+          <h2 id="pmName"></h2>
+          <p id="pmDesc" class="pm-desc"></p>
+        </div>
+        <button id="pmClose" class="modal-close-btn" type="button" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="portfolio-modal-body">
+        <div class="pm-search-section">
+          <div class="search-row">
+            <input id="pmSearchInput" type="text" placeholder="Buscar fondo, ETF o ticker…" autocomplete="off" />
+            <button id="pmSearchBtn" class="btn-primary" type="button">Buscar</button>
+          </div>
+          <div id="pmSearchResults" class="search-results"></div>
+        </div>
+        <div class="pm-items-section">
+          <p class="pm-section-label">Instrumentos en la cartera</p>
+          <div id="pmItemsList" class="pm-items-list">
+            <p class="empty-state">Cargando…</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Add item dialog -->
+  <dialog id="addItemDialog">
+    <div id="addItemBackdrop" class="modal-backdrop"></div>
+    <div class="add-item-card">
+      <h3 id="addItemTitle" class="add-item-title">Añadir instrumento</h3>
+      <input type="hidden" id="addItemSymbolVal" />
+      <input type="hidden" id="addItemNameVal" />
+      <div class="field-row">
+        <label>
+          Participaciones
+          <input id="addItemUnits" type="number" min="0" step="any" placeholder="0" />
+        </label>
+        <label>
+          Precio medio de compra
+          <input id="addItemCost" type="number" min="0" step="any" placeholder="Opcional" />
+        </label>
+      </div>
+      <label>
+        Categoría
+        <select id="addItemCategory">
+          <option value="">Sin categoría</option>
+          <option value="money">Monetario</option>
+          <option value="bonds">Renta fija</option>
+          <option value="mixed">Mixto</option>
+          <option value="equity">Renta variable</option>
+        </select>
+      </label>
+      <div class="form-actions" style="margin-top:16px;">
+        <button id="addItemCancel" class="btn-secondary" type="button">Cancelar</button>
+        <button id="addItemSave" class="btn-primary" type="button">Añadir a la cartera</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="/assets/js/auth-client.js"></script>
+  <script src="/assets/js/portfolio.js"></script>
+</body>
+</html>

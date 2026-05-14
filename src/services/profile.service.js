@@ -1,6 +1,11 @@
 const { findProfileByUserId, upsertProfileByUserId } = require("./profile.repository");
 const { compactText } = require("../utils/text");
 
+const PROFILE_ROLES = {
+  USER: "user",
+  ADMIN: "admin",
+};
+
 function normalizeProfilePayload(input = {}) {
   const profile = {
     full_name: compactText(input.full_name) || null,
@@ -43,6 +48,7 @@ async function upsertProfile(userId, input = {}) {
 }
 
 module.exports = {
+  PROFILE_ROLES,
   getProfileByUserId,
   upsertProfile,
   validateProfilePayload,

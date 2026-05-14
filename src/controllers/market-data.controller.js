@@ -33,7 +33,7 @@ async function quote(req, res) {
     return res.status(400).json({ error: "Configura al menos una API key en el servidor" });
   }
 
-  const settled = await mapWithConcurrency(symbols, 8, (symbol) =>
+  const settled = await mapWithConcurrency(symbols, 6, (symbol) =>
     fetchByProvider(symbol, provider)
   );
   const rows = settled
@@ -95,7 +95,7 @@ async function discover(req, res) {
     return res.status(200).json({
       symbols,
       count: symbols.length,
-      source: "Finnhub symbol catalog",
+      source: "Finnhub and Twelve Data discovery candidates",
     });
   } catch (error) {
     return res.status(502).json({

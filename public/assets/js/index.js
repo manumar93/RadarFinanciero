@@ -1,235 +1,18 @@
-const presets = {
-  money: [
-    "BIL",
-    "SHV",
-    "SGOV",
-    "MINT",
-    "JPST",
-    "ICSH",
-    "GBIL",
-    "VGSH",
-    "SCHO",
-    "SHY",
-    "NEAR",
-    "ULST",
-    "GSY",
-    "PULS",
-    "SPSB",
-    "FLRN",
-    "TFLO",
-    "USFR",
-    "FLOT",
-    "CLTL",
-    "BILS",
-    "TBIL",
-    "XBIL",
-    "MEAR",
-    "LDUR",
-    "VUSB",
-    "JPST",
-    "MUB",
-    "SHM",
-    "SUB",
-  ],
-  bonds: [
-    "AGG",
-    "BND",
-    "IEF",
-    "TLT",
-    "LQD",
-    "BNDX",
-    "HYG",
-    "EMB",
-    "VCIT",
-    "VCSH",
-    "TIP",
-    "SHYG",
-    "JNK",
-    "BKLN",
-    "SRLN",
-    "IGSB",
-    "SPSB",
-    "SCHZ",
-    "GOVT",
-    "SCHR",
-    "SPTI",
-    "SPTL",
-    "MBB",
-    "CMBS",
-    "VMBS",
-    "BIV",
-    "BLV",
-    "EDV",
-    "BWX",
-    "WIP",
-    "HYLB",
-    "ANGL",
-    "FALN",
-    "IGLB",
-    "USIG",
-    "SPIB",
-    "IUSB",
-    "FBND",
-    "TOTL",
-    "MUB",
-    "HYD",
-    "PFFD",
-  ],
-  mixed: [
-    "AOR",
-    "AOM",
-    "AOA",
-    "VTIP",
-    "SCHP",
-    "NTSX",
-    "RPAR",
-    "VTMFX",
-    "FFNOX",
-    "SWAN",
-    "VBIAX",
-    "VSMGX",
-    "VSCGX",
-    "VASGX",
-    "VSMAX",
-    "AOK",
-    "AOA",
-    "AOM",
-    "AOR",
-    "GAL",
-    "MDIV",
-    "CVY",
-    "GAA",
-    "PCEF",
-    "RLY",
-    "RPAR",
-    "RISR",
-    "TRTY",
-    "DGRW",
-    "CWB",
-    "SPYI",
-    "JEPI",
-    "JEPQ",
-    "NUSI",
-    "QYLD",
-    "XYLD",
-    "RYLD",
-    "SCHY",
-    "VYM",
-    "VIG",
-  ],
-  equity: [
-    "SPY",
-    "IVV",
-    "VOO",
-    "VTI",
-    "VT",
-    "VEA",
-    "VWO",
-    "QQQ",
-    "IWM",
-    "ACWI",
-    "VWCE",
-    "EUNL",
-    "DIA",
-    "SCHB",
-    "ITOT",
-    "SPLG",
-    "VUG",
-    "VTV",
-    "IWF",
-    "IWD",
-    "XLK",
-    "XLF",
-    "XLV",
-    "XLI",
-    "XLY",
-    "XLP",
-    "XLE",
-    "XLU",
-    "XLB",
-    "XLRE",
-    "SMH",
-    "SOXX",
-    "EFA",
-    "IEFA",
-    "EWJ",
-    "EWG",
-    "EWU",
-    "EWC",
-    "EWZ",
-    "INDA",
-    "MCHI",
-    "ARKK",
-    "DGRO",
-    "VIG",
-    "SCHD",
-    "HDV",
-    "USMV",
-    "MTUM",
-    "VEU",
-    "VXUS",
-    "SPDW",
-    "SPEM",
-    "IEMG",
-    "EEM",
-    "FXI",
-    "KWEB",
-    "EWY",
-    "EWT",
-    "EWA",
-    "EWH",
-    "VGT",
-    "VHT",
-    "VIS",
-    "VFH",
-    "VDE",
-    "VPU",
-    "VNQ",
-    "VOX",
-    "RSP",
-    "MDY",
-    "IJH",
-    "VB",
-    "SCHA",
-    "VTWO",
-    "AVUV",
-    "QUAL",
-    "SIZE",
-    "SPLV",
-    "QQQM",
-    "SCHG",
-    "IWY",
-    "IWN",
-    "IWO",
-    "SCZ",
-  ],
-};
-
 const loadBtn = document.getElementById("loadBtn");
-const providerSelect = document.getElementById("providerSelect");
 const searchInput = document.getElementById("searchInput");
 const searchBtn = document.getElementById("searchBtn");
 const searchResults = document.getElementById("searchResults");
 const prevPageBtn = document.getElementById("prevPageBtn");
 const nextPageBtn = document.getElementById("nextPageBtn");
+const loadMoreCategoryBtn = document.getElementById("loadMoreCategoryBtn");
 const pageInfo = document.getElementById("pageInfo");
 const categoryNavButtons = Array.from(document.querySelectorAll("[data-category-nav]"));
 const topNav = document.getElementById("headerMount");
-const topCategoryPanel = document.getElementById("topCategoryPanel");
-const categoryOptionLists = {
-  money: document.getElementById("catMoney"),
-  bonds: document.getElementById("catBonds"),
-  mixed: document.getElementById("catMixed"),
-  equity: document.getElementById("catEquity"),
-};
 const heatmapGrid = document.getElementById("heatmapGrid");
 const emptyState = document.getElementById("emptyState");
 const countStat = document.getElementById("countStat");
 const bestStat = document.getElementById("bestStat");
 const worstStat = document.getElementById("worstStat");
-const avgStat = document.getElementById("avgStat");
-const authStatusTitle = document.getElementById("authStatusTitle");
-const authStatusMeta = document.getElementById("authStatusMeta");
 const authActionsMount = document.getElementById("authActionsMount");
 const loginLink = document.getElementById("loginLink");
 const registerLink = document.getElementById("registerLink");
@@ -237,20 +20,19 @@ const registerLink = document.getElementById("registerLink");
 let allRows = [];
 let currentPage = 1;
 let selectedSymbols = [];
-let openCategoryKey = null;
 let favoriteSymbols = new Set();
-const categorySelections = {
-  money: "",
-  bonds: "",
-  mixed: "",
-  equity: "",
-};
-const STORAGE_KEY_PROVIDER = "radarfinanciero-provider";
+let activeQuoteRequestId = 0;
+let activeCategoryKey = null;
+let activeCategoryOffset = 0;
+let isCategoryLoading = false;
+const categorySymbolsCache = {};
 const STORAGE_KEY_FAVORITES = "radarfinanciero-favorites";
-const LEGACY_STORAGE_KEY_PROVIDER = `fund${"scanner"}-provider`;
 const LEGACY_STORAGE_KEY_FAVORITES = `fund${"scanner"}-favorites`;
 const MAX_SYMBOLS_PER_BATCH = 35;
-const PAGE_SIZE = 30;
+const PAGE_SIZE = 20;
+const CATEGORY_SYMBOL_LIMIT = 10;
+const CATEGORY_RESULT_LIMIT = PAGE_SIZE;
+const CATEGORY_PROVIDER = "auto";
 const DISCOVER_LIMIT_PER_CATEGORY = 300;
 const SYMBOL_NAME_MAP = {
   SPY: "SPDR S&P 500 ETF",
@@ -307,13 +89,6 @@ const SYMBOL_NAME_MAP = {
   SOXX: "iShares Semiconductor ETF",
   SMH: "VanEck Semiconductor ETF",
 };
-const CATEGORY_LABELS = {
-  money: "Monetarios",
-  bonds: "Renta fija",
-  mixed: "Mixto defensivo",
-  equity: "Renta variable global",
-};
-
 function upsertSymbols(symbolsToAdd) {
   const merged = [...new Set([...selectedSymbols, ...symbolsToAdd])];
   selectedSymbols = merged;
@@ -345,19 +120,32 @@ function displayNameForRow(row) {
   return "Nombre no disponible";
 }
 
+function userHasActiveSession() {
+  return Boolean(window.__FUND_RADAR_AUTH__?.user || window.FundRadarAuth?.getAccessToken?.());
+}
+
+function redirectToLogin() {
+  window.location.href = "/login.html";
+}
+
+document.addEventListener(
+  "click",
+  (event) => {
+    const button = event.target.closest("button");
+    if (!button || userHasActiveSession()) return;
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    redirectToLogin();
+  },
+  true
+);
+
 function saveSettings() {
-  localStorage.setItem(STORAGE_KEY_PROVIDER, providerSelect.value);
   localStorage.setItem(STORAGE_KEY_FAVORITES, JSON.stringify([...favoriteSymbols]));
 }
 
 function loadSettings() {
-  const savedProvider =
-    localStorage.getItem(STORAGE_KEY_PROVIDER) || localStorage.getItem(LEGACY_STORAGE_KEY_PROVIDER);
-  if (savedProvider && !localStorage.getItem(STORAGE_KEY_PROVIDER)) {
-    localStorage.setItem(STORAGE_KEY_PROVIDER, savedProvider);
-    localStorage.removeItem(LEGACY_STORAGE_KEY_PROVIDER);
-  }
-  providerSelect.value = savedProvider || "auto";
   try {
     const savedFavorites =
       localStorage.getItem(STORAGE_KEY_FAVORITES) ||
@@ -407,9 +195,6 @@ async function refreshAuthStrip() {
   const subscriptionInfoContainer = document.getElementById("subscriptionInfoContainer");
   if (!authPayload?.user) {
     window.__FUND_RADAR_AUTH__ = null;
-    authStatusTitle.textContent = "Sesion no iniciada";
-    authStatusMeta.textContent =
-      "Puedes entrar para activar perfil, carteras y favoritos persistentes.";
     if (authActionsMount) authActionsMount.style.display = "flex";
     loginLink.hidden = false;
     registerLink.hidden = false;
@@ -423,12 +208,6 @@ async function refreshAuthStrip() {
   }
 
   window.__FUND_RADAR_AUTH__ = authPayload;
-  const displayName =
-    authPayload.profile?.full_name ||
-    authPayload.user.user_metadata?.full_name ||
-    authPayload.user.email;
-  authStatusTitle.textContent = `Sesion activa: ${displayName}`;
-  authStatusMeta.textContent = authPayload.user.email || "Usuario autenticado";
   if (authActionsMount) authActionsMount.style.display = "none";
   loginLink.hidden = true;
   registerLink.hidden = true;
@@ -438,6 +217,23 @@ async function refreshAuthStrip() {
   if (userBlock) userBlock.classList.remove("hidden");
   if (subscriptionInfoContainer) subscriptionInfoContainer.style.visibility = "visible";
   placeAuthActions();
+
+  const userNameEl = document.getElementById("userName");
+  if (userNameEl) {
+    const p = authPayload?.profile;
+    const u = authPayload?.user;
+    userNameEl.textContent =
+      p?.full_name ||
+      u?.user_metadata?.full_name ||
+      (u?.email ? u.email.split("@")[0] : "") ||
+      u?.email ||
+      "";
+  }
+
+  const adminNavLink = document.getElementById("adminNavLink");
+  if (adminNavLink && authPayload?.profile?.role === "admin") {
+    adminNavLink.classList.remove("hidden");
+  }
 }
 
 async function loadDashboardChrome() {
@@ -490,7 +286,6 @@ function initDashboardChrome() {
   const dropdownPairs = [
     ["btnMyProducts", "productsMenu", "productsArrow"],
     ["btnPromotions", "promotionsMenu", "promotionsArrow"],
-    ["btnSales", "salesMenu", "salesArrow"],
   ];
 
   dropdownPairs.forEach(([buttonId, menuId, arrowId]) => {
@@ -537,6 +332,7 @@ function initDashboardChrome() {
 
   const userName = document.getElementById("userName");
   const userEmail = document.getElementById("userEmail");
+  const userAvatar = document.getElementById("userAvatar");
   const planName = document.getElementById("planNameHeader");
   const daysCounter = document.getElementById("daysCounter");
   const daysLabel = document.getElementById("daysLabelText");
@@ -548,11 +344,27 @@ function initDashboardChrome() {
   const displayName =
     authProfile?.full_name ||
     authUser?.user_metadata?.full_name ||
+    (authUser?.email ? authUser.email.split("@")[0] : "") ||
     authUser?.email ||
-    "RadarFinanciero";
+    "";
 
   if (userName) userName.textContent = displayName;
   if (userEmail) userEmail.textContent = authUser?.email || "panel@fondos.local";
+  const userRoleBadge = document.getElementById("userRoleBadge");
+  if (userRoleBadge && authProfile?.role) {
+    userRoleBadge.textContent = authProfile.role === "admin" ? "Administrador" : "Usuario";
+    userRoleBadge.className = `user-role-badge ${authProfile.role === "admin" ? "user-role-admin" : "user-role-user"}`;
+  }
+  const adminNavLink = document.getElementById("adminNavLink");
+  if (adminNavLink && authProfile?.role === "admin") {
+    adminNavLink.classList.remove("hidden");
+  }
+  if (userAvatar) {
+    const avatarUrl = authProfile?.avatar_url || authUser?.user_metadata?.avatar_url || "";
+    userAvatar.classList.toggle("hidden", !avatarUrl);
+    if (avatarUrl) userAvatar.src = avatarUrl;
+    else userAvatar.removeAttribute("src");
+  }
   if (planName) planName.textContent = authUser ? "Cuenta" : "Panel";
   if (daysCounter) daysCounter.textContent = authUser ? "1" : "24";
   if (daysLabel) daysLabel.textContent = authUser ? "sesion activa" : "widgets listos";
@@ -577,78 +389,11 @@ function initDashboardChrome() {
   });
 }
 
-function initCategoryDropdowns() {
-  Object.entries(categoryOptionLists).forEach(([key, container]) => {
-    const uniqueTickers = [...new Set(presets[key])];
-    const items = [
-      { value: "", label: "Sin selección" },
-      { value: "__all", label: "Todos (máximo API)" },
-      ...uniqueTickers.map((ticker) => ({ value: ticker, label: ticker })),
-    ];
-    container.innerHTML = items
-      .map(
-        (item) => `
-          <button class="cat-option ${item.value === categorySelections[key] ? "active" : ""}" data-key="${key}" data-value="${item.value}" type="button">${item.label}</button>
-        `
-      )
-      .join("");
-  });
-  updateCategoryNavLabels();
-}
-
-function updateCategoryNavLabels() {
-  categoryNavButtons.forEach((btn) => {
-    const key = btn.dataset.categoryNav;
-    const value = categorySelections[key];
-    if (!value) {
-      btn.textContent = CATEGORY_LABELS[key];
-      return;
-    }
-    btn.textContent = value === "__all" ? `${CATEGORY_LABELS[key]}: Todos` : value;
-  });
-}
-
-async function discoverCategorySymbols(category) {
-  const url = `/api/discover?category=${encodeURIComponent(category)}&limit=${DISCOVER_LIMIT_PER_CATEGORY}`;
-  const res = await fetch(url, { cache: "no-store" });
-  const data = await res.json();
-  if (!res.ok || data?.error) {
-    throw new Error(data?.error || `HTTP ${res.status}`);
-  }
-  return Array.isArray(data?.symbols) ? data.symbols : [];
-}
-
-async function syncSymbolsFromCategories() {
-  const picked = [];
-  for (const [key, value] of Object.entries(categorySelections)) {
-    if (!value) continue;
-    if (value !== "__all") {
-      picked.push(value);
-      continue;
-    }
-    try {
-      const discovered = await discoverCategorySymbols(key);
-      if (discovered.length) {
-        picked.push(...discovered);
-      } else {
-        picked.push(...presets[key]);
-      }
-    } catch (_) {
-      picked.push(...presets[key]);
-    }
-  }
-  const symbols = [...new Set(picked)];
-  selectedSymbols = symbols;
-  if (symbols.length) fetchQuotes(symbols);
-}
-
 function paintStats(rows) {
   countStat.textContent = rows.length;
   if (!rows.length) {
     bestStat.textContent = "-";
     worstStat.textContent = "-";
-    avgStat.textContent = "-";
-    avgStat.className = "stat-value";
     return;
   }
   const sorted = rows
@@ -657,11 +402,8 @@ function paintStats(rows) {
   if (!sorted.length) return;
   const best = sorted[0];
   const worst = sorted[sorted.length - 1];
-  const avg = sorted.reduce((acc, r) => acc + r.regularMarketChangePercent, 0) / sorted.length;
   bestStat.textContent = `${best.symbol} (${formatNum(best.regularMarketChangePercent)}%)`;
   worstStat.textContent = `${worst.symbol} (${formatNum(worst.regularMarketChangePercent)}%)`;
-  avgStat.textContent = `${formatNum(avg)}%`;
-  avgStat.className = `stat-value ${avg >= 0 ? "pos" : "neg"}`;
 }
 
 function colorForPerformance(pct) {
@@ -735,6 +477,7 @@ function renderHeatmap() {
     pageInfo.textContent = "Página 0/0";
     prevPageBtn.disabled = true;
     nextPageBtn.disabled = true;
+    updateLoadMoreButton();
     return;
   }
   const sourceRows = allRows;
@@ -744,6 +487,7 @@ function renderHeatmap() {
     pageInfo.textContent = "Página 0/0";
     prevPageBtn.disabled = true;
     nextPageBtn.disabled = true;
+    updateLoadMoreButton();
     return;
   }
   emptyState.style.display = "none";
@@ -754,6 +498,7 @@ function renderHeatmap() {
   pageInfo.textContent = `Página ${currentPage}/${totalPages} (${sourceRows.length} fondos)`;
   prevPageBtn.disabled = currentPage <= 1;
   nextPageBtn.disabled = currentPage >= totalPages;
+  updateLoadMoreButton();
 
   visibleRows.forEach((row, idx) => {
     const pct = row.regularMarketChangePercent;
@@ -782,10 +527,80 @@ function renderHeatmap() {
   });
 }
 
-function renderRows(rows) {
-  allRows = rows;
-  currentPage = 1;
-  paintStats(rows);
+function updateLoadMoreButton() {
+  if (!loadMoreCategoryBtn) return;
+  const categorySymbols = activeCategoryKey ? getCachedCategorySymbols(activeCategoryKey) : [];
+  const hasMore = activeCategoryKey && activeCategoryOffset < categorySymbols.length;
+  loadMoreCategoryBtn.hidden = !activeCategoryKey;
+  loadMoreCategoryBtn.disabled = isCategoryLoading || !hasMore;
+  loadMoreCategoryBtn.textContent = isCategoryLoading
+    ? "Cargando..."
+    : hasMore
+      ? `Cargar más (${Math.min(CATEGORY_SYMBOL_LIMIT, categorySymbols.length - activeCategoryOffset)})`
+      : "No hay más";
+}
+
+function normalizeSymbols(symbols) {
+  return [
+    ...new Set(
+      symbols
+        .map((symbol) => (typeof symbol === "string" ? symbol.trim().toUpperCase() : ""))
+        .filter(Boolean)
+    ),
+  ];
+}
+
+function getCachedCategorySymbols(key) {
+  return categorySymbolsCache[key] || [];
+}
+
+async function getCategorySymbols(key) {
+  if (categorySymbolsCache[key]?.length) return categorySymbolsCache[key];
+
+  try {
+    const url = `/api/discover?category=${encodeURIComponent(key)}&limit=${DISCOVER_LIMIT_PER_CATEGORY}`;
+    const res = await fetch(url, { cache: "no-store" });
+    const data = await res.json();
+    if (!res.ok || data?.error) throw new Error(data?.error || `HTTP ${res.status}`);
+
+    const discoveredSymbols = Array.isArray(data?.symbols) ? data.symbols : [];
+    const symbols = normalizeSymbols(discoveredSymbols);
+    if (symbols.length) {
+      categorySymbolsCache[key] = symbols;
+    } else {
+      delete categorySymbolsCache[key];
+    }
+  } catch (_) {
+    delete categorySymbolsCache[key];
+  }
+
+  return categorySymbolsCache[key] || [];
+}
+
+function rowIdentity(row) {
+  const symbol = (row.symbol || "").toUpperCase();
+  const source = (row.source || "").toUpperCase();
+  return symbol && source ? `${symbol}:${source}` : symbol;
+}
+
+function renderRows(rows, options = {}) {
+  if (options.append) {
+    const previousPage = currentPage;
+    const byRow = new Map(allRows.map((row) => [rowIdentity(row), row]));
+    rows.forEach((row) => {
+      const key = rowIdentity(row);
+      if (key) byRow.set(key, row);
+    });
+    allRows = [...byRow.values()];
+    if (options.goToNextPage) {
+      const totalPages = Math.max(1, Math.ceil(allRows.length / PAGE_SIZE));
+      currentPage = Math.min(previousPage + 1, totalPages);
+    }
+  } else {
+    allRows = rows;
+    currentPage = 1;
+  }
+  paintStats(allRows);
   renderHeatmap();
 }
 
@@ -797,12 +612,69 @@ function chunkSymbols(symbols, size) {
   return chunks;
 }
 
-async function fetchQuotes(symbols, forcedProvider = null) {
+async function requestQuoteRows(symbols, provider, quoteRequestId) {
+  const chunks = chunkSymbols(symbols, MAX_SYMBOLS_PER_BATCH);
+  const mergedRows = [];
+  const errors = [];
+
+  for (const chunk of chunks) {
+    const endpoint = `/api/quote?symbols=${encodeURIComponent(chunk.join(","))}&provider=${encodeURIComponent(provider)}`;
+    const res = await fetch(endpoint, { cache: "no-store" });
+    const data = await res.json();
+    if (quoteRequestId !== activeQuoteRequestId) return { aborted: true, rows: [], errors };
+    if (!res.ok || data?.error) {
+      errors.push(data?.error || `HTTP ${res.status}`);
+      continue;
+    }
+    const rows = Array.isArray(data?.rows) ? data.rows : [];
+    mergedRows.push(...rows);
+  }
+
+  if (provider !== "auto") {
+    const loadedSymbols = new Set(
+      mergedRows.map((row) => (row.symbol || "").toUpperCase()).filter(Boolean)
+    );
+    const missingSymbols = symbols.filter((symbol) => !loadedSymbols.has(symbol.toUpperCase()));
+    if (missingSymbols.length) {
+      const fallbackEndpoint = `/api/quote?symbols=${encodeURIComponent(missingSymbols.join(","))}&provider=auto`;
+      const fallbackRes = await fetch(fallbackEndpoint, { cache: "no-store" });
+      const fallbackData = await fallbackRes.json();
+      if (quoteRequestId !== activeQuoteRequestId) return { aborted: true, rows: [], errors };
+      if (fallbackRes.ok && !fallbackData?.error && Array.isArray(fallbackData?.rows)) {
+        const seenRows = new Set(mergedRows.map(rowIdentity).filter(Boolean));
+        fallbackData.rows.forEach((row) => {
+          const key = rowIdentity(row);
+          if (!key || seenRows.has(key)) return;
+          seenRows.add(key);
+          mergedRows.push(row);
+        });
+      }
+    }
+  }
+
+  if (!mergedRows.length && provider !== "auto") {
+    return requestQuoteRows(symbols, "auto", quoteRequestId);
+  }
+
+  return { aborted: false, rows: mergedRows, errors };
+}
+
+async function fetchQuotes(symbols, forcedProvider = null, requestId = null, options = {}) {
+  const quoteRequestId = requestId ?? ++activeQuoteRequestId;
   if (!symbols.length) {
     emptyState.style.display = "block";
     emptyState.textContent = "No hay tickers seleccionados.";
     renderRows([]);
-    return;
+    return false;
+  }
+  if (!forcedProvider) {
+    emptyState.style.display = "block";
+    emptyState.textContent = "Cargando cotizaciones...";
+    if (!allRows.length) {
+      pageInfo.textContent = "Página 0/0";
+      prevPageBtn.disabled = true;
+      nextPageBtn.disabled = true;
+    }
   }
   saveSettings();
   try {
@@ -810,44 +682,100 @@ async function fetchQuotes(symbols, forcedProvider = null) {
       loadBtn.disabled = true;
       loadBtn.textContent = "Cargando...";
     }
-    const provider = forcedProvider || providerSelect.value;
-    const chunks = chunkSymbols(symbols, MAX_SYMBOLS_PER_BATCH);
-    const mergedRows = [];
-    const errors = [];
-
-    for (const chunk of chunks) {
-      const endpoint = `/api/quote?symbols=${encodeURIComponent(chunk.join(","))}&provider=${encodeURIComponent(provider)}`;
-      const res = await fetch(endpoint, { cache: "no-store" });
-      const data = await res.json();
-      if (!res.ok || data?.error) {
-        errors.push(data?.error || `HTTP ${res.status}`);
-        continue;
-      }
-      const rows = Array.isArray(data?.rows) ? data.rows : [];
-      mergedRows.push(...rows);
-    }
+    const provider = forcedProvider || options.provider || "auto";
+    const {
+      aborted,
+      rows: mergedRows,
+      errors,
+    } = await requestQuoteRows(symbols, provider, quoteRequestId);
+    if (aborted) return false;
 
     if (!mergedRows.length) {
-      if (!forcedProvider && provider !== "auto") {
-        await fetchQuotes(symbols, "auto");
-        return;
-      }
       throw new Error(errors[0] || "Sin resultados para esos tickers.");
     }
-    renderRows(mergedRows);
+    if (quoteRequestId !== activeQuoteRequestId) return false;
+    const rowsToRender =
+      typeof options.maxRows === "number" ? mergedRows.slice(0, options.maxRows) : mergedRows;
+    renderRows(rowsToRender, options);
+    updateLoadMoreButton();
     if (errors.length) {
       emptyState.style.display = "block";
       emptyState.textContent = `Carga parcial: algunas tandas fallaron por límite de API (${errors[0]}).`;
     }
+    return true;
   } catch (err) {
+    if (quoteRequestId !== activeQuoteRequestId) return false;
     emptyState.style.display = "block";
     emptyState.textContent = `No se pudo cargar la cotización: ${err.message}. Revisa que estés en http://localhost:3000 y prueba 'Fuente: Auto'.`;
+    return false;
   } finally {
     if (loadBtn) {
       loadBtn.disabled = false;
       loadBtn.textContent = "Cargar cotizaciones";
     }
   }
+}
+
+async function loadCategoryResults(key, options = {}) {
+  const quoteRequestId = ++activeQuoteRequestId;
+  const append = Boolean(options.append);
+  const categorySymbols = await getCategorySymbols(key);
+  if (quoteRequestId !== activeQuoteRequestId || activeCategoryKey !== key) return false;
+  let offset = append ? activeCategoryOffset : 0;
+  const collectedRows = [];
+  const seenRows = new Set((append ? allRows : []).map(rowIdentity).filter(Boolean));
+  selectedSymbols = append ? [...selectedSymbols] : [];
+
+  emptyState.style.display = "block";
+  emptyState.textContent = "Cargando cotizaciones...";
+  if (!append && !allRows.length) {
+    pageInfo.textContent = "Página 0/0";
+    prevPageBtn.disabled = true;
+    nextPageBtn.disabled = true;
+  }
+
+  while (collectedRows.length < CATEGORY_RESULT_LIMIT && offset < categorySymbols.length) {
+    const symbols = categorySymbols.slice(offset, offset + CATEGORY_SYMBOL_LIMIT);
+    offset += symbols.length;
+    selectedSymbols = [...new Set([...selectedSymbols, ...symbols])];
+
+    const { aborted, rows, errors } = await requestQuoteRows(
+      symbols,
+      CATEGORY_PROVIDER,
+      quoteRequestId
+    );
+    if (aborted || activeCategoryKey !== key) return false;
+
+    rows.forEach((row) => {
+      if (collectedRows.length >= CATEGORY_RESULT_LIMIT) return;
+      const rowKey = rowIdentity(row);
+      if (!rowKey || seenRows.has(rowKey)) return;
+      seenRows.add(rowKey);
+      collectedRows.push(row);
+    });
+
+    if (errors.length && !collectedRows.length && offset >= categorySymbols.length) {
+      emptyState.style.display = "block";
+      emptyState.textContent = `No se pudo cargar la cotización: ${errors[0]}.`;
+    }
+  }
+
+  activeCategoryOffset = offset;
+  if (!collectedRows.length) {
+    updateLoadMoreButton();
+    if (!allRows.length) {
+      emptyState.style.display = "block";
+      emptyState.textContent = "No hay cotizaciones disponibles para esta categoría.";
+    }
+    return false;
+  }
+
+  renderRows(collectedRows.slice(0, CATEGORY_RESULT_LIMIT), {
+    append,
+    goToNextPage: append,
+  });
+  updateLoadMoreButton();
+  return true;
 }
 
 async function searchTickers() {
@@ -860,7 +788,7 @@ async function searchTickers() {
   try {
     searchBtn.disabled = true;
     searchBtn.textContent = "Buscando...";
-    const provider = providerSelect.value;
+    const provider = "auto";
     const url = `/api/search?q=${encodeURIComponent(query)}&provider=${encodeURIComponent(provider)}`;
     const res = await fetch(url, { cache: "no-store" });
     const data = await res.json();
@@ -875,6 +803,11 @@ async function searchTickers() {
     rows.forEach((row) => {
       const item = document.createElement("div");
       item.className = "result-item";
+      item.style.cursor = "pointer";
+      item.dataset.detailSymbol = row.symbol;
+      item.dataset.detailName = row.name || "-";
+      item.dataset.detailExchange = row.exchange || "-";
+      item.dataset.detailSource = row.source || "-";
       item.innerHTML = `
             <div>
               <strong>${row.symbol}</strong> - ${row.name || "-"}
@@ -894,10 +827,15 @@ async function searchTickers() {
 }
 
 function runFromInput() {
+  activeCategoryKey = null;
+  activeCategoryOffset = 0;
+  isCategoryLoading = false;
+  updateLoadMoreButton();
   const symbols = [...selectedSymbols];
   if (!symbols.length) {
     emptyState.style.display = "block";
-    emptyState.textContent = "No hay tickers seleccionados. Usa categorías o buscador.";
+    emptyState.textContent =
+      "No hay tickers seleccionados. Haz click en una categoría o usa el buscador.";
     renderRows([]);
     return;
   }
@@ -909,48 +847,166 @@ searchBtn.addEventListener("click", searchTickers);
 searchInput.addEventListener("keydown", (ev) => {
   if (ev.key === "Enter") searchTickers();
 });
-Object.values(categoryOptionLists).forEach((container) => {
-  container.addEventListener("click", (ev) => {
-    const btn = ev.target.closest(".cat-option");
-    if (!btn) return;
-    const key = btn.dataset.key;
-    const value = btn.dataset.value ?? "";
-    categorySelections[key] = value;
-    initCategoryDropdowns();
-    syncSymbolsFromCategories();
-    openCategoryKey = null;
+
+let searchDebounceTimer = null;
+searchInput.addEventListener("input", () => {
+  clearTimeout(searchDebounceTimer);
+  const q = searchInput.value.trim();
+  if (q.length < 2) {
+    searchResults.style.display = "none";
+    searchResults.innerHTML = "";
+    return;
+  }
+  searchDebounceTimer = setTimeout(searchTickers, 400);
+});
+categoryNavButtons.forEach((btn) => {
+  btn.addEventListener("click", async () => {
+    const key = btn.dataset.categoryNav;
+    activeCategoryKey = key;
+    activeCategoryOffset = 0;
+    isCategoryLoading = true;
     categoryNavButtons.forEach((b) => {
-      b.classList.remove("active");
+      b.classList.toggle("active", b.dataset.categoryNav === key);
     });
-    topCategoryPanel.classList.remove("open");
+    updateLoadMoreButton();
+    const loaded = await loadCategoryResults(key);
+    if (activeCategoryKey !== key) return;
+    isCategoryLoading = false;
+    if (!loaded) {
+      updateLoadMoreButton();
+      return;
+    }
+    updateLoadMoreButton();
   });
 });
-providerSelect.addEventListener("change", saveSettings);
 
-categoryNavButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const key = btn.dataset.categoryNav;
-    categorySelections[key] = "__all";
-    initCategoryDropdowns();
-    syncSymbolsFromCategories();
-    openCategoryKey = key;
-    categoryNavButtons.forEach((b) => {
-      b.classList.toggle("active", b.dataset.categoryNav === openCategoryKey);
-    });
-    topCategoryPanel.classList.toggle("open", Boolean(openCategoryKey));
-    Object.entries(categoryOptionLists).forEach(([catKey, container]) => {
-      container.classList.toggle("active", catKey === openCategoryKey);
-    });
-    adjustHeaderOffset();
-  });
+loadMoreCategoryBtn?.addEventListener("click", async () => {
+  if (!activeCategoryKey) return;
+  const key = activeCategoryKey;
+  const categorySymbols = getCachedCategorySymbols(activeCategoryKey);
+  const offset = activeCategoryOffset;
+  if (offset >= categorySymbols.length) {
+    updateLoadMoreButton();
+    return;
+  }
+  isCategoryLoading = true;
+  updateLoadMoreButton();
+  const loaded = await loadCategoryResults(key, { append: true });
+  if (activeCategoryKey !== key) return;
+  isCategoryLoading = false;
+  if (!loaded && activeCategoryOffset === offset) updateLoadMoreButton();
+  updateLoadMoreButton();
+});
+
+const detailModal = document.getElementById("detailModal");
+const detailModalBackdrop = document.getElementById("detailModalBackdrop");
+const detailClose = document.getElementById("detailClose");
+const detailSymbolEl = document.getElementById("detailSymbol");
+const detailExchangeEl = document.getElementById("detailExchange");
+const detailNameEl = document.getElementById("detailName");
+const detailPriceEl = document.getElementById("detailPrice");
+const detailChangeEl = document.getElementById("detailChange");
+const detailHighEl = document.getElementById("detailHigh");
+const detailLowEl = document.getElementById("detailLow");
+const detailSourceEl = document.getElementById("detailSource");
+const detailAddBtn = document.getElementById("detailAddBtn");
+
+async function openDetailModal(symbol, prefill = {}) {
+  detailSymbolEl.textContent = symbol;
+  detailExchangeEl.textContent = prefill.exchange || "—";
+  detailNameEl.textContent = prefill.name || symbol;
+  detailPriceEl.textContent = "Cargando...";
+  detailChangeEl.textContent = "—";
+  detailChangeEl.className = "";
+  detailHighEl.textContent = "—";
+  detailLowEl.textContent = "—";
+  detailSourceEl.textContent = prefill.source ? `Fuente: ${prefill.source}` : "";
+  detailAddBtn.dataset.symbol = symbol;
+  detailModal.showModal();
+
+  try {
+    const res = await fetch(`/api/quote?symbols=${encodeURIComponent(symbol)}&provider=auto`, { cache: "no-store" });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data?.error || `HTTP ${res.status}`);
+    const row = data?.rows?.[0];
+    if (!row) throw new Error("Sin datos de precio");
+
+    if (row.fullExchangeName && row.fullExchangeName !== "-") detailExchangeEl.textContent = row.fullExchangeName;
+    if (row.shortName && row.shortName !== "-") detailNameEl.textContent = row.shortName;
+
+    const price = row.regularMarketPrice;
+    detailPriceEl.textContent = price != null ? `${formatNum(price)} ${row.currency || ""}` : "—";
+
+    const pct = row.regularMarketChangePercent;
+    const chg = row.regularMarketChange;
+    if (pct != null) {
+      detailChangeEl.textContent = `${chg >= 0 ? "+" : ""}${formatNum(chg)} (${pct >= 0 ? "+" : ""}${formatNum(pct)}%)`;
+      detailChangeEl.className = pct >= 0 ? "pos" : "neg";
+    }
+
+    detailHighEl.textContent = row.regularMarketDayHigh != null ? `${formatNum(row.regularMarketDayHigh)} ${row.currency || ""}` : "—";
+    detailLowEl.textContent = row.regularMarketDayLow != null ? `${formatNum(row.regularMarketDayLow)} ${row.currency || ""}` : "—";
+    detailSourceEl.textContent = `Fuente: ${row.source || "—"}`;
+  } catch (err) {
+    console.error("[modal]", err);
+    if (detailPriceEl) detailPriceEl.textContent = "No disponible";
+    if (detailSourceEl) detailSourceEl.textContent = prefill.source ? `Fuente: ${prefill.source}` : "";
+  }
+}
+
+detailClose?.addEventListener("click", () => detailModal?.close());
+detailModalBackdrop?.addEventListener("click", () => detailModal?.close());
+detailAddBtn?.addEventListener("click", () => {
+  const symbol = detailAddBtn.dataset.symbol;
+  if (!symbol) return;
+  activeCategoryKey = null;
+  activeCategoryOffset = 0;
+  isCategoryLoading = false;
+  updateLoadMoreButton();
+  const symbols = upsertSymbols([symbol]);
+  fetchQuotes(symbols);
+  detailModal.close();
+});
+
+const newsModal = document.getElementById("newsModal");
+const newsModalBackdrop = document.getElementById("newsModalBackdrop");
+const newsModalClose = document.getElementById("newsModalClose");
+const newsModalSourceEl = document.getElementById("newsModalSource");
+const newsModalTitleEl = document.getElementById("newsModalTitle");
+const newsModalBodyEl = document.getElementById("newsModalBody");
+
+newsModalClose?.addEventListener("click", () => newsModal?.close());
+newsModalBackdrop?.addEventListener("click", () => newsModal?.close());
+
+document.querySelector(".news-grid")?.addEventListener("click", (ev) => {
+  const card = ev.target.closest(".news-card");
+  if (!card) return;
+  newsModalSourceEl.textContent = card.querySelector(".news-source")?.textContent || "";
+  newsModalTitleEl.textContent = card.querySelector("h3")?.textContent || "";
+  newsModalBodyEl.textContent = card.querySelector("p")?.textContent || "";
+  newsModal.showModal();
 });
 
 searchResults.addEventListener("click", (ev) => {
-  const btn = ev.target.closest("button[data-symbol]");
-  if (!btn) return;
-  const symbols = upsertSymbols([btn.dataset.symbol]);
-  fetchQuotes(symbols);
+  const addBtn = ev.target.closest("button[data-symbol]");
+  if (addBtn) {
+    activeCategoryKey = null;
+    activeCategoryOffset = 0;
+    isCategoryLoading = false;
+    updateLoadMoreButton();
+    const symbols = upsertSymbols([addBtn.dataset.symbol]);
+    fetchQuotes(symbols);
+    return;
+  }
+  const item = ev.target.closest("[data-detail-symbol]");
+  if (!item) return;
+  openDetailModal(item.dataset.detailSymbol, {
+    name: item.dataset.detailName,
+    exchange: item.dataset.detailExchange,
+    source: item.dataset.detailSource,
+  });
 });
+
 heatmapGrid.addEventListener("click", (ev) => {
   const btn = ev.target.closest("button[data-favorite-symbol]");
   if (btn) {
@@ -969,8 +1025,7 @@ heatmapGrid.addEventListener("click", (ev) => {
   const tile = ev.target.closest(".heat-tile");
   const symbol = (tile?.dataset.symbol || "").toUpperCase();
   if (!symbol) return;
-  selectedSymbols = [symbol];
-  fetchQuotes([symbol]);
+  openDetailModal(symbol);
 });
 
 prevPageBtn.addEventListener("click", () => {
@@ -983,7 +1038,6 @@ nextPageBtn.addEventListener("click", () => {
   renderHeatmap();
 });
 loadSettings();
-initCategoryDropdowns();
 adjustHeaderOffset();
 loadDashboardChrome().then(() => refreshAuthStrip());
 window.addEventListener("resize", () => {

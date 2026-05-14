@@ -59,7 +59,9 @@ body {
   padding: 40px;
   color: #f2fbff;
   display: grid;
-  align-content: space-between;
+  align-content: start;
+  justify-items: center;
+  text-align: center;
   gap: 24px;
   background:
     radial-gradient(circle at 75% 22%, rgba(41, 182, 255, 0.28), transparent 24%),
@@ -85,63 +87,6 @@ body {
   border-left: 1px solid rgba(104, 154, 191, 0.14);
 }
 
-.badge {
-  display: inline-flex;
-  width: 44px;
-  height: 44px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 6px;
-  border: 1px solid rgba(154, 213, 255, 0.12);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
-.fs-mark {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  overflow: hidden;
-  background: linear-gradient(145deg, #0ebf89, #1f87ff);
-}
-
-.fs-mark::before,
-.fs-mark::after {
-  content: "";
-  position: absolute;
-  left: 6px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.96);
-}
-
-.fs-mark::before {
-  top: 9px;
-  width: 16px;
-  height: 2.6px;
-}
-
-.fs-mark::after {
-  top: 16px;
-  width: 11px;
-  height: 2.6px;
-}
-
-.fs-mark-dot {
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: #dbfff5;
-  box-shadow: 0 0 0 2px rgba(219, 255, 245, 0.14);
-}
-
-.fs-mark.alt {
-  background: linear-gradient(145deg, #1f87ff, #0ebf89);
-}
 
 .panel-topline,
 .brand-top {
@@ -151,41 +96,18 @@ body {
   gap: 12px;
 }
 
-.eyebrow,
-.panel-status,
-.brand-chip,
-.metric-label {
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.eyebrow,
-.brand-chip {
-  display: inline-flex;
-  align-items: center;
-  min-height: 32px;
-  padding: 0 12px;
-  border-radius: 999px;
-  font-size: 0.74rem;
-  font-weight: 800;
-}
-
-.eyebrow {
-  color: var(--accent);
-  background: rgba(22, 242, 165, 0.1);
-  border: 1px solid rgba(22, 242, 165, 0.18);
+.auth-brand-logo {
+  height: 36px;
+  width: auto;
+  border-radius: 8px;
 }
 
 .panel-status {
   color: #bfd8ec;
   font-size: 0.72rem;
   font-weight: 700;
-}
-
-.brand-chip {
-  color: #eaf7ff;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 h1,
@@ -300,11 +222,27 @@ button {
 }
 
 .small-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 20px;
-  font-size: 0.92rem;
+  margin-top: 12px;
+}
+
+.small-links a.secondary {
+  display: block;
+  border-radius: 999px;
+  padding: 14px 18px;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  color: var(--accent-2);
+  background: rgba(41, 182, 255, 0.06);
+  border: 1px solid rgba(41, 182, 255, 0.28);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.small-links a.secondary:hover {
+  background: rgba(41, 182, 255, 0.12);
+  border-color: rgba(41, 182, 255, 0.5);
 }
 
 a {
@@ -316,32 +254,6 @@ a {
   gap: 10px;
 }
 
-.brand-metrics {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.metric-card {
-  padding: 16px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(154, 213, 255, 0.12);
-  backdrop-filter: blur(8px);
-}
-
-.metric-card strong {
-  display: block;
-  margin-top: 8px;
-  font-size: 1rem;
-  letter-spacing: -0.02em;
-}
-
-.metric-label {
-  color: rgba(191, 216, 236, 0.74);
-  font-size: 0.68rem;
-  font-weight: 700;
-}
 
 @media (max-width: 900px) {
   .auth-shell {
@@ -362,9 +274,6 @@ a {
     grid-template-columns: 1fr;
   }
 
-  .brand-metrics {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
 }
 
 @media (max-width: 640px) {
@@ -376,7 +285,4 @@ a {
     align-items: flex-start;
   }
 
-  .brand-metrics {
-    display: grid;
-  }
 }

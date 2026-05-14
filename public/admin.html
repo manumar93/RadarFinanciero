@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Panel Admin | RadarFinanciero</title>
+  <link rel="icon" type="image/png" href="/assets/images/logo.png?v=20260514" />
+  <link rel="shortcut icon" type="image/png" href="/assets/images/logo.png?v=20260514" />
+  <link rel="stylesheet" href="/assets/css/profile.css" />
+  <style>
+    .users-table-wrap {
+      padding: 28px 32px 32px;
+      position: relative;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+    }
+    thead th {
+      text-align: left;
+      padding: 10px 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(191, 216, 236, 0.74);
+      border-bottom: 1px solid rgba(110, 156, 191, 0.22);
+    }
+    tbody tr {
+      border-bottom: 1px solid rgba(110, 156, 191, 0.1);
+      transition: background 0.15s;
+    }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody td {
+      padding: 13px 14px;
+      color: #dceaf6;
+    }
+    .badge-admin {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(22, 242, 165, 0.12);
+      color: #16f2a5;
+      border: 1px solid rgba(22, 242, 165, 0.22);
+    }
+    .badge-user {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.06);
+      color: #93a8bb;
+      border: 1px solid rgba(110, 156, 191, 0.22);
+    }
+    #adminError {
+      display: none;
+      margin: 0 32px 20px;
+      border-radius: 14px;
+      padding: 13px 15px;
+      background: rgba(255, 114, 114, 0.12);
+      color: #ff7272;
+      border: 1px solid rgba(255, 114, 114, 0.18);
+    }
+    .muted { color: #93a8bb; }
+    .btn-role {
+      border: 0;
+      border-radius: 999px;
+      padding: 5px 14px;
+      font: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .btn-role:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-make-admin {
+      background: rgba(22, 242, 165, 0.12);
+      color: #16f2a5;
+      border: 1px solid rgba(22, 242, 165, 0.3);
+    }
+    .btn-make-admin:hover:not(:disabled) { background: rgba(22, 242, 165, 0.22); }
+    .btn-make-user {
+      background: rgba(255, 114, 114, 0.1);
+      color: #ff7272;
+      border: 1px solid rgba(255, 114, 114, 0.3);
+    }
+    .btn-make-user:hover:not(:disabled) { background: rgba(255, 114, 114, 0.2); }
+    @media (max-width: 820px) {
+      .users-table-wrap { padding: 20px; }
+      thead th, tbody td { padding: 10px 8px; }
+    }
+    @media (max-width: 600px) {
+      .col-id, .col-currency { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="profile-card">
+      <header class="profile-head">
+        <div class="profile-topline">
+          <span class="profile-kicker">Admin</span>
+          <span class="profile-status">Solo administradores</span>
+        </div>
+        <h1>Panel de usuarios</h1>
+        <p>Lista de todas las cuentas registradas en RadarFinanciero.</p>
+      </header>
+
+      <div id="adminError"></div>
+
+      <div class="users-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-id">ID</th>
+              <th>Nombre</th>
+              <th>Rol</th>
+              <th>Riesgo</th>
+              <th class="col-currency">Moneda</th>
+              <th>Registro</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody">
+            <tr>
+              <td colspan="7" class="muted" style="padding:24px 14px;">Cargando...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="actions" style="padding: 0 32px 28px;">
+        <span></span>
+        <a class="link-btn secondary" href="/index.html">Volver al inicio</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="/assets/js/auth-client.js"></script>
+  <script src="/assets/js/admin.js"></script>
+</body>
+</html>

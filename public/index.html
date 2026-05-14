@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RadarFinanciero</title>
-  <link rel="stylesheet" href="/assets/css/index.css?v=20260325a" />
+  <link rel="icon" type="image/png" href="/assets/images/logo.png?v=20260514" />
+  <link rel="shortcut icon" type="image/png" href="/assets/images/logo.png?v=20260514" />
+  <link rel="stylesheet" href="/assets/css/index.css?v=20260512a" />
 </head>
 <body>
   <div id="headerMount" aria-live="polite"></div>
@@ -18,49 +20,17 @@
     <section class="hero">
       <div class="hero-topline">
         <span class="hero-eyebrow">Trading Desk Premium</span>
-        <span class="hero-status">Radar activo</span>
       </div>
       <h1>Radar Financiero de Fondos y ETFs</h1>
       <p>
         Compara en una sola vista instrumentos de perfil monetario, renta fija y renta variable.
         Puedes usar tickers de fondos cotizados (ETF) o fondos negociados en mercado. La actualización es automática.
       </p>
-      <div class="hero-metrics" aria-hidden="true">
-        <article class="hero-metric">
-          <span class="hero-metric-label">Modo</span>
-          <strong>Realtime View</strong>
-        </article>
-        <article class="hero-metric">
-          <span class="hero-metric-label">Cobertura</span>
-          <strong>Fondos + ETFs</strong>
-        </article>
-        <article class="hero-metric">
-          <span class="hero-metric-label">Cuenta</span>
-          <strong>Cloud Sync</strong>
-        </article>
-      </div>
-
       <div class="search-row">
         <input id="searchInput" class="input" placeholder="Buscar ticker o nombre, ejemplo: vanguard bond" />
         <button id="searchBtn" class="button" type="button">Buscar ticker</button>
       </div>
       <div id="searchResults" class="search-results"></div>
-
-      <div class="api-controls">
-        <select id="providerSelect" class="select" aria-label="Proveedor de datos">
-          <option value="auto">Fuente: Auto (fallback)</option>
-          <option value="finnhub">Solo Finnhub</option>
-          <option value="twelve">Solo Twelve Data</option>
-          <option value="compare">Comparar ambas</option>
-        </select>
-      </div>
-
-      <div class="auth-strip" aria-live="polite">
-        <div class="auth-strip-text">
-          <span id="authStatusTitle" class="auth-strip-title">Sesion no iniciada</span>
-          <span id="authStatusMeta" class="auth-strip-meta">Puedes entrar para activar perfil, carteras y favoritos persistentes.</span>
-        </div>
-      </div>
     </section>
 
     <section class="category-block" aria-label="Categorías principales">
@@ -70,12 +40,6 @@
         <button class="top-nav-btn" data-category-nav="mixed" type="button">Mixto defensivo</button>
         <button class="top-nav-btn" data-category-nav="equity" type="button">Renta variable global</button>
       </div>
-      <section id="topCategoryPanel" class="top-category-panel" aria-label="Opciones de categoría">
-        <div id="catMoney" class="category-options" aria-label="Monetarios"></div>
-        <div id="catBonds" class="category-options" aria-label="Renta fija"></div>
-        <div id="catMixed" class="category-options" aria-label="Mixto defensivo"></div>
-        <div id="catEquity" class="category-options" aria-label="Renta variable"></div>
-      </section>
     </section>
 
     <section class="stats" aria-live="polite">
@@ -91,10 +55,6 @@
         <span class="stat-label">Peor variación diaria</span>
         <span id="worstStat" class="stat-value">-</span>
       </article>
-      <article class="stat">
-        <span class="stat-label">Variación media diaria</span>
-        <span id="avgStat" class="stat-value">-</span>
-      </article>
     </section>
 
     <section class="heatmap-wrap">
@@ -103,8 +63,9 @@
         <button id="prevPageBtn" class="chip" type="button">Anterior</button>
         <span id="pageInfo" class="small selection-note">Página 0/0</span>
         <button id="nextPageBtn" class="chip" type="button">Siguiente</button>
+        <button id="loadMoreCategoryBtn" class="chip" type="button" hidden>Cargar más</button>
       </div>
-      <div id="emptyState" class="empty">Selecciona tickers en los 4 desplegables o escríbelos manualmente para empezar.</div>
+      <div id="emptyState" class="empty">Haz click en una categoría o usa el buscador para empezar.</div>
     </section>
     <section class="news-wrap" aria-label="Noticias del mercado">
       <div class="news-head">
@@ -137,7 +98,61 @@
   </main>
   </div>
 
-  <script src="/assets/js/auth-client.js"></script>
-  <script src="/assets/js/index.js"></script>
+  <dialog id="detailModal">
+    <div id="detailModalBackdrop" class="detail-modal-backdrop"></div>
+    <div class="detail-modal-card">
+      <div class="detail-modal-head">
+        <div>
+          <div class="detail-symbol-row">
+            <span id="detailSymbol" class="detail-symbol"></span>
+            <span id="detailExchange" class="detail-exchange-badge"></span>
+          </div>
+          <p id="detailName" class="detail-name"></p>
+        </div>
+        <button id="detailClose" class="detail-close" type="button" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="detail-modal-body">
+        <div class="detail-metrics">
+          <div class="detail-metric">
+            <span class="detail-metric-label">Precio</span>
+            <strong id="detailPrice">—</strong>
+          </div>
+          <div class="detail-metric">
+            <span class="detail-metric-label">Variación día</span>
+            <strong id="detailChange">—</strong>
+          </div>
+          <div class="detail-metric">
+            <span class="detail-metric-label">Máximo día</span>
+            <strong id="detailHigh">—</strong>
+          </div>
+          <div class="detail-metric">
+            <span class="detail-metric-label">Mínimo día</span>
+            <strong id="detailLow">—</strong>
+          </div>
+        </div>
+        <p id="detailSource" class="detail-source"></p>
+      </div>
+      <div class="detail-modal-foot">
+        <button id="detailAddBtn" class="detail-add-btn" type="button">Añadir al radar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="newsModal">
+    <div id="newsModalBackdrop" class="detail-modal-backdrop"></div>
+    <div class="detail-modal-card news-modal-card">
+      <div class="detail-modal-head">
+        <span id="newsModalSource" class="news-modal-source"></span>
+        <button id="newsModalClose" class="detail-close" type="button" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="detail-modal-body">
+        <h2 id="newsModalTitle" class="news-modal-title"></h2>
+        <p id="newsModalBody" class="news-modal-body"></p>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="/assets/js/auth-client.js?v=20260512a"></script>
+  <script src="/assets/js/index.js?v=20260512a"></script>
 </body>
 </html>

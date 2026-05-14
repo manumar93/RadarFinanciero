@@ -7,11 +7,16 @@ create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   full_name text,
   avatar_url text,
+  role text not null default 'user' check (role in ('user', 'admin')),
   risk_profile text check (risk_profile in ('conservador', 'moderado', 'agresivo')),
   preferred_currency text default 'EUR',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Añade roles también si la tabla profiles ya existía antes de este esquema.
+alter table public.profiles
+add column if not exists role text not null default 'user' check (role in ('user', 'admin'));
 
 -- Cartera principal o secundaria de cada usuario.
 -- Un usuario puede tener varias carteras.

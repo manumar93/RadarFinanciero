@@ -1,13 +1,15 @@
 const form = document.getElementById("profileForm");
 const emailBox = document.getElementById("emailBox");
 const fullNameInput = document.getElementById("fullNameInput");
-const avatarUrlInput = document.getElementById("avatarUrlInput");
 const currencyInput = document.getElementById("currencyInput");
 const riskProfileInput = document.getElementById("riskProfileInput");
-const updatedAtBox = document.getElementById("updatedAtBox");
 const errorBox = document.getElementById("errorBox");
 const successBox = document.getElementById("successBox");
 const saveBtn = document.getElementById("saveBtn");
+const profileRoleBadge = document.getElementById("profileRoleBadge");
+const profileRoleMetric = document.getElementById("profileRoleMetric");
+
+let currentAvatarUrl = "";
 
 function showError(message) {
   successBox.style.display = "none";
@@ -21,20 +23,15 @@ function showSuccess(message) {
   successBox.style.display = "block";
 }
 
-function formatDate(value) {
-  if (!value) return "Sin datos";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Sin datos";
-  return date.toLocaleString("es-ES");
-}
-
 function fillProfile(authPayload, profile) {
   emailBox.textContent = authPayload?.user?.email || "Sin email";
   fullNameInput.value = profile?.full_name || "";
-  avatarUrlInput.value = profile?.avatar_url || "";
+  currentAvatarUrl = profile?.avatar_url || "";
   currencyInput.value = profile?.preferred_currency || "EUR";
   riskProfileInput.value = profile?.risk_profile || "";
-  updatedAtBox.textContent = formatDate(profile?.updated_at);
+  const isAdmin = profile?.role === "admin";
+  profileRoleBadge.textContent = isAdmin ? "Administrador" : "Usuario";
+  if (profileRoleMetric) profileRoleMetric.textContent = isAdmin ? "Admin" : "Usuario";
 }
 
 async function loadProfilePage() {
@@ -64,7 +61,7 @@ form.addEventListener("submit", async (event) => {
 
     const result = await window.FundRadarAuth.updateProfile({
       full_name: fullNameInput.value,
-      avatar_url: avatarUrlInput.value,
+      avatar_url: currentAvatarUrl,
       preferred_currency: currencyInput.value,
       risk_profile: riskProfileInput.value,
     });

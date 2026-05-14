@@ -1,11 +1,15 @@
 const { TWELVE_DATA_API_KEY } = require("../config/env");
+const { fetchWithTimeout } = require("../utils/fetch-with-timeout");
 const { compactText, toNum } = require("../utils/text");
+
+const TWELVE_QUOTE_TIMEOUT_MS = 7000;
+const TWELVE_SEARCH_TIMEOUT_MS = 7000;
 
 async function fetchTwelveSymbol(symbol) {
   if (!TWELVE_DATA_API_KEY) throw new Error("Falta TWELVE_DATA_API_KEY en el servidor");
 
   const url = `https://api.twelvedata.com/quote?symbol=${encodeURIComponent(symbol)}&apikey=${encodeURIComponent(TWELVE_DATA_API_KEY)}`;
-  const res = await fetch(url);
+  const res = await fetchWithTimeout(url, {}, TWELVE_QUOTE_TIMEOUT_MS);
   if (!res.ok) throw new Error(`Twelve Data HTTP ${res.status} (${symbol})`);
 
   const data = await res.json();
@@ -30,24 +34,39 @@ async function fetchTwelveSymbol(symbol) {
   };
 }
 
+const US_MIC_CODES = new Set([
+  "XNYS", "XNAS", "ARCX", "BATS", "XASE", "IEXG", "XCHI", "XPHL",
+]);
+
+function isUsListed(item) {
+  const mic = compactText(item?.mic_code).toUpperCase();
+  const exch = compactText(item?.exchange).toUpperCase();
+  if (US_MIC_CODES.has(mic)) return true;
+  return ["NYSE", "NASDAQ", "AMEX", "NYSE ARCA", "NYSE MKT", "BATS", "IEX", "OTC"].some(
+    (u) => exch.includes(u)
+  );
+}
+
 async function searchTwelve(query) {
   if (!TWELVE_DATA_API_KEY) return [];
 
   const url = `https://api.twelvedata.com/symbol_search?symbol=${encodeURIComponent(query)}&apikey=${encodeURIComponent(TWELVE_DATA_API_KEY)}`;
-  const res = await fetch(url);
+  const res = await fetchWithTimeout(url, {}, TWELVE_SEARCH_TIMEOUT_MS);
   if (!res.ok) return [];
 
   const data = await res.json();
   const rows = Array.isArray(data?.data) ? data.data : [];
 
   return rows
+    .filter((item) => isUsListed(item))
     .map((item) => ({
       symbol: compactText(item?.symbol).toUpperCase(),
       name: compactText(item?.instrument_name) || "-",
       exchange: compactText(item?.exchange) || compactText(item?.mic_code) || "-",
+      type: compactText(item?.instrument_type) || "-",
       source: "Twelve Data",
     }))
-    .filter((item) => item.symbol);
+    .filter((item) => item.symbol && /^[A-Z]{2,6}$/.test(item.symbol));
 }
 
 module.exports = {

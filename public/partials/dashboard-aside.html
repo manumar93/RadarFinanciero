@@ -8,7 +8,7 @@
 ></div>
 <aside
   id="sidebar"
-  class="fixed left-0 top-0 h-full w-full md:w-64 glass-effect sidebar-transition z-[2147483001] overflow-y-auto"
+  class="fixed left-0 top-0 h-full w-full md:w-64 glass-effect sidebar-transition z-[2147483001] overflow-hidden"
 >
   <div class="flex flex-col h-full">
     <!-- Logo Section -->
@@ -18,31 +18,12 @@
     >
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <div
-            class="w-10 h-10 rounded-lg flex items-center justify-center shadow-lg"
-          >
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 28 28"
-              fill="none"
-              aria-hidden="true"
-            >
-              <rect x="2.5" y="2.5" width="23" height="23" rx="8" fill="url(#fsAsideBg)" />
-              <path d="M8 18.5h7.5" stroke="white" stroke-width="2.2" stroke-linecap="round" />
-              <path d="M8 14h12" stroke="white" stroke-width="2.2" stroke-linecap="round" />
-              <circle cx="18.8" cy="18.3" r="2.2" fill="#D9FFF1" />
-              <defs>
-                <linearGradient id="fsAsideBg" x1="4" y1="4" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#1B7F68" />
-                  <stop offset="1" stop-color="#0F5E7A" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
-          <div>
-            <h2 class="text-white font-bold text-lg">RadarFinanciero</h2>
-          </div>
+          <img
+            src="/assets/images/logo.png"
+            alt="RadarFinanciero"
+            style="height: 40px; width: auto; border-radius: 8px;"
+          />
+          <h2 class="text-white font-bold text-lg">RadarFinanciero</h2>
         </div>
         <button
           type="button"
@@ -68,11 +49,11 @@
     <!-- Navigation -->
     <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
       <a
-        href="../seller/dashboard-seller.html"
-        class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 group"
+        href="/index.html"
+        class="nav-link flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 group"
       >
         <svg
-          class="w-5 h-5"
+          class="w-5 h-5 shrink-0"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -84,14 +65,17 @@
             d="M4 13h6V5H4v8zm0 6h6v-4H4v4zm10 0h6V11h-6v8zm0-10h6V5h-6v4z"
           />
         </svg>
-        <span class="font-medium">Dashboard</span>
+        <span class="font-medium">Inicio</span>
       </a>
+      <!-- =====================================================
+          BLOQUE MIS FAVORITOS
+          ===================================================== -->
       <a
-        href="/profile.html"
-        class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 group"
+        href="/favorites.html"
+        class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 group"
       >
         <svg
-          class="w-5 h-5"
+          class="w-5 h-5 shrink-0"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -100,114 +84,19 @@
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
-            d="M15.5 7.5a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0ZM4 19.5a8 8 0 0 1 16 0"
+            d="m12 20-1.45-1.32C5.4 14.02 2 10.94 2 7.15C2 4.5 4.1 2.5 6.7 2.5c1.48 0 2.9.7 3.8 1.82A5.03 5.03 0 0 1 14.3 2.5C16.9 2.5 19 4.5 19 7.15c0 3.79-3.4 6.87-8.55 11.53L12 20Z"
           />
         </svg>
-        <span>Mi Perfil</span>
+        <span class="font-medium">Mis Favoritos</span>
       </a>
-      <!-- =====================================================
-          SUBMENÚ MIS PRODUCTOS
-          Estructura desplegable para acceder a productos publicados y archivados.
-          Patrón idéntico a filesMenu y affiliatesMenu.
-          ===================================================== -->
-      <div class="relative">
-        <button
-          type="button"
-          id="btnMyProducts"
-          class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
-        >
-          <span class="flex items-center space-x-3">
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m12 20-1.45-1.32C5.4 14.02 2 10.94 2 7.15C2 4.5 4.1 2.5 6.7 2.5c1.48 0 2.9.7 3.8 1.82A5.03 5.03 0 0 1 14.3 2.5C16.9 2.5 19 4.5 19 7.15c0 3.79-3.4 6.87-8.55 11.53L12 20Z"
-              />
-            </svg>
-            <span>Mis Favoritos</span>
-          </span>
-        </button>
-      </div>
-      <!-- FIN SUBMENÚ MIS PRODUCTOS -->
+      <!-- FIN BLOQUE MIS FAVORITOS -->
 
-      <div class="relative">
-        <button
-          type="button"
-          id="btnPromotions"
-          class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
-        >
-          <span class="flex items-center space-x-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-5 h-5"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 18h.01M9.09 9a3 3 0 1 1 5.82 1c0 2-3 3-3 3"
-              />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 22a10 10 0 1 0 0-20a10 10 0 0 0 0 20Z" />
-            </svg>
-            <span>Ayuda</span>
-          </span>
-        </button>
-      </div>
-      <div class="relative">
-        <button
-          type="button"
-          id="btnSales"
-          class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
-        >
-          <span class="flex items-center space-x-3">
-            <svg
-              class="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 8V4m0 16v-4m8-4h-4M8 12H4m13.66 5.66-2.83-2.83M9.17 9.17 6.34 6.34m11.32 0-2.83 2.83M9.17 14.83l-2.83 2.83"
-              />
-              <circle cx="12" cy="12" r="3" stroke-width="2" />
-            </svg>
-            <span>Ajustes</span>
-          </span>
-        </button>
-
-        <div id="salesMenu" class="hidden ml-8 mt-1 space-y-1">
-          <a
-            href="../seller/list-product-sales.html"
-            class="block px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200"
-          >
-            Historial de Ventas
-          </a>
-          <a
-            href="/seller/my_buyers.html"
-            class="block px-4 py-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200"
-          >
-            Mis Compradores
-          </a>
-        </div>
-      </div>
       <a
-        href="/seller/sales_section.html"
-        class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 group"
+        href="/portfolio.html"
+        class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 group"
       >
         <svg
-          class="w-5 h-5"
+          class="w-5 h-5 shrink-0"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -222,14 +111,82 @@
           <circle cx="12" cy="3" r="2" stroke-width="2" />
           <circle cx="19" cy="11" r="2" stroke-width="2" />
         </svg>
-        <span>Estadísticas</span>
+        <span class="font-medium">Mi cartera</span>
       </a>
+
+      <a
+        href="/profile.html"
+        class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 group"
+      >
+        <svg
+          class="w-5 h-5 shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15.5 7.5a3.5 3.5 0 1 1-7 0a3.5 3.5 0 0 1 7 0ZM4 19.5a8 8 0 0 1 16 0"
+          />
+        </svg>
+        <span class="font-medium">Mi Perfil</span>
+      </a>
+      <div class="relative">
+        <button
+          type="button"
+          id="btnPromotions"
+          class="w-full flex items-center justify-between px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200"
+        >
+          <span class="flex items-center gap-3">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-5 h-5 shrink-0"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 18h.01M9.09 9a3 3 0 1 1 5.82 1c0 2-3 3-3 3"
+              />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 22a10 10 0 1 0 0-20a10 10 0 0 0 0 20Z" />
+            </svg>
+            <span class="font-medium">Ayuda</span>
+          </span>
+        </button>
+      </div>
+    </nav>
+      <a
+        href="/admin.html"
+        id="adminNavLink"
+        class="hidden flex items-center gap-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-gray-800 hover:text-white transition-all duration-200 group"
+      >
+        <svg
+          class="w-5 h-5 shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+          />
+        </svg>
+        <span class="font-medium">Panel Admin</span>
+      </a>
+    <!-- Logout anclado al fondo -->
+    <div class="p-4 pt-2 border-t border-gray-700">
       <a
         href="#"
         id="logoutBtn"
         hidden
-        class="flex items-center space-x-2 px-4 py-3 rounded-lg transition-all duration-200 group"
-        style="color:#fecaca;background:rgba(127,29,29,0.22);border:1px solid rgba(248,113,113,0.24);"
+        class="logout-session-btn flex items-center space-x-2 transition-all duration-200 group"
       >
         <svg
           class="w-5 h-5"
@@ -246,7 +203,7 @@
         </svg>
         <span class="font-medium">Cerrar sesion</span>
       </a>
-    </nav>
+    </div>
   </div>
 </aside>
 <dialog id="logoutDialog" class="fixed inset-0 bg-transparent">

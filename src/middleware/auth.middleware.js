@@ -1,4 +1,5 @@
 const { getSupabaseAdminClient } = require("../config/supabase");
+const { PROFILE_ROLES, getProfileByUserId } = require("../services/profile.service");
 
 function getBearerToken(req) {
   const header = req.headers.authorization || "";
@@ -28,7 +29,26 @@ async function requireAuth(req, res, next) {
   }
 }
 
+async function requireAdmin(req, res, next) {
+  try {
+    if (!req.user?.id) {
+      return res.status(401).json({ error: "Autenticación requerida" });
+    }
+
+    const profile = req.profile || (await getProfileByUserId(req.user.id));
+    if (profile?.role !== PROFILE_ROLES.ADMIN) {
+      return res.status(403).json({ error: "Permisos de administrador requeridos" });
+    }
+
+    req.profile = profile;
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+}
+
 module.exports = {
   getBearerToken,
+  requireAdmin,
   requireAuth,
 };
