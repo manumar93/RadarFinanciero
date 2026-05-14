@@ -96,12 +96,16 @@ body {
   font-size: clamp(1.8rem, 3vw, 2.6rem);
   line-height: 1.02;
   letter-spacing: -0.04em;
+  text-align: center;
 }
 
 .card-head p {
   margin: 0;
   color: var(--muted);
   max-width: 62ch;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ── Card body ── */
@@ -330,6 +334,25 @@ button:disabled { opacity: 0.5; cursor: default; }
 }
 .modal-close-btn:hover { background: rgba(255,255,255,0.12); color: #eef7ff; }
 
+/* ── Edit dialog ── */
+#editDialog {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  max-height: none;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #eef7ff;
+  z-index: 10030;
+}
+#editDialog:not([open]) { display: none; }
+#editDialog::backdrop { display: none; }
+
 /* ── Portfolio detail modal ── */
 #portfolioModal {
   background: transparent;
@@ -535,4 +558,90 @@ button:disabled { opacity: 0.5; cursor: default; }
   .card-head, .card-body { padding-left: 20px; padding-right: 20px; }
   .field-row { grid-template-columns: 1fr; }
   .create-form { padding: 16px; }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 16px;
+  }
+
+  .page-shell {
+    width: calc(100vw - 16px);
+    margin: 12px auto 32px;
+  }
+
+  .card-head {
+    padding: 18px 14px 14px;
+  }
+
+  .card-head h1 {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+  }
+
+  .card-body {
+    padding: 16px 14px 20px;
+    gap: 14px;
+  }
+
+  .card-topline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Búsqueda apilada */
+  .search-row {
+    flex-direction: column;
+  }
+
+  .search-row button {
+    width: 100%;
+  }
+
+  /* Tarjetas de cartera apiladas */
+  .item-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+  }
+
+  .item-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .item-name {
+    white-space: normal;
+  }
+
+  /* Acciones del formulario: columna */
+  .form-actions {
+    justify-content: stretch;
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+
+  /* Modal de portfolio: margen reducido */
+  .portfolio-modal-card {
+    width: calc(100vw - 16px);
+    max-height: calc(100vh - 24px);
+  }
+
+  .portfolio-modal-head {
+    padding: 16px 16px 12px;
+  }
+
+  .portfolio-modal-body {
+    padding: 14px 16px;
+  }
+
+  /* Modal añadir item */
+  .add-item-card {
+    width: calc(100vw - 16px);
+    padding: 18px 16px;
+  }
 }

@@ -260,14 +260,13 @@ a {
 
   .auth-brand {
     order: -1;
-    min-height: 260px;
+    min-height: 200px;
   }
 
   .auth-panel,
   .auth-brand {
     padding: 28px;
   }
-
 }
 
 @media (max-width: 520px) {
@@ -275,5 +274,43 @@ a {
   .brand-top {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 12px;
+  }
+
+  .auth-shell {
+    border-radius: 18px;
+  }
+
+  .auth-brand {
+    min-height: 140px;
+    padding: 20px;
+    gap: 14px;
+  }
+
+  .auth-panel {
+    padding: 22px 18px;
+  }
+
+  h1 {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+    margin: 12px 0 8px;
+  }
+
+  h2 {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+  }
+
+  form {
+    margin-top: 18px;
+    gap: 12px;
+  }
+
+  button {
+    padding: 13px 16px;
   }
 }

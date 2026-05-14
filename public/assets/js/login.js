@@ -32,10 +32,26 @@ window.FundRadarAuth?.fetchCurrentUser().then((authPayload) => {
   }
 });
 
+function validateLogin() {
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+
+  if (!email) return "El email es obligatorio.";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "El email no tiene un formato válido.";
+  if (!password) return "La contraseña es obligatoria.";
+  if (password.length < 6) return "La contraseña debe tener al menos 6 caracteres.";
+
+  return null;
+}
+
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
   errorBox.style.display = "none";
   successBox.style.display = "none";
+
+  const validationError = validateLogin();
+  if (validationError) { showError(validationError); return; }
+
   if (!window.FundRadarAuth) {
     showError("No se pudo cargar el cliente de autenticacion.");
     return;
@@ -45,7 +61,7 @@ form.addEventListener("submit", async (event) => {
     submitBtn.disabled = true;
     submitBtn.textContent = "Entrando...";
     const data = await window.FundRadarAuth.loginFromWeb({
-      email: emailInput.value,
+      email: emailInput.value.trim(),
       password: passwordInput.value,
     });
 

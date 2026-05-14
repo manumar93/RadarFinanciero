@@ -287,3 +287,49 @@ button,
     align-items: flex-start;
   }
 }
+
+@media (max-width: 480px) {
+  body {
+    padding-top: 16px;
+  }
+
+  .page-shell {
+    width: calc(100vw - 16px);
+    margin: 12px auto 32px;
+  }
+
+  .profile-head {
+    padding: 18px 14px 14px;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  form {
+    padding: 16px 14px 20px;
+    gap: 16px;
+  }
+
+  /* Acciones del formulario: botones apilados */
+  .actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .button-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .button-row button,
+  .button-row .link-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Métricas del perfil: compactas */
+  .metric-card {
+    padding: 12px;
+  }
+}
