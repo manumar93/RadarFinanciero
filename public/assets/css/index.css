@@ -1880,6 +1880,7 @@ body.sidebar-open #overlay {
     transform: translateX(0);
   }
 
+  /* En tablet (641-920px) el sidebar está siempre visible, no se necesita hamburguesa */
   #overlay,
   #menuToggle,
   #closeSidebar {
@@ -1932,12 +1933,135 @@ body.sidebar-open #overlay {
   }
 }
 
+/* ── Móvil (teléfono): sidebar oculto, hamburguesa visible, layout completo ── */
+@media (max-width: 640px) {
+  :root {
+    --header-h: 68px;
+    --sidebar-w: 260px;
+  }
+
+  body {
+    padding-top: calc(var(--header-h) + 8px);
+  }
+
+  /* Mostrar el botón hamburguesa */
+  #menuToggle {
+    display: flex !important;
+  }
+
+  /* Mostrar el botón cerrar dentro del sidebar */
+  #closeSidebar {
+    display: flex !important;
+  }
+
+  /* Permitir que el overlay funcione (oculto por opacidad, no por display) */
+  #overlay {
+    display: block !important;
+  }
+
+  /* Sidebar oculto fuera de pantalla por defecto */
+  #sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-w);
+    z-index: 2147483001;
+  }
+
+  /* Sidebar visible cuando está abierto */
+  body.sidebar-open #sidebar {
+    transform: translateX(0);
+  }
+
+  /* Layout sin margen de sidebar — ocupa todo el ancho */
+  .layout-shell {
+    width: calc(100% - 20px);
+    margin: 12px 10px 32px;
+  }
+
+  /* Header ocupa todo el ancho */
+  #headerMount {
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+
+  #headerMount header {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(105, 154, 190, 0.18);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  #header-principal {
+    padding: 10px 14px;
+    min-height: var(--header-h);
+  }
+
+  /* Hero: padding reducido */
+  .hero {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+
+  /* Botón de búsqueda: ancho completo */
+  #searchBtn {
+    min-width: 0;
+    width: 100%;
+  }
+
+  /* Categorías: cuadrícula 2x2 en lugar de scroll horizontal */
+  .top-nav-categories {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .top-nav-btn {
+    padding: 10px 8px;
+    font-size: 0.84rem;
+  }
+
+  /* Stats: columna única */
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  /* Heatmap: 1 columna en pantallas muy pequeñas */
+  .heatmap-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  /* Paginación: compacta */
+  .pager {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Card body padding reducido */
+  .card-body,
+  .card-head {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
 @media (max-width: 520px) {
   .left-aside {
     grid-template-columns: 1fr;
   }
   .stats {
     grid-template-columns: 1fr;
+  }
+
+  /* Nombre de fondo en tiles del heatmap más pequeño */
+  .heat-name {
+    font-size: 0.85rem;
   }
 }
 
@@ -2360,6 +2484,19 @@ body {
     box-shadow:
       0 12px 22px rgba(12, 74, 110, 0.22),
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+}
+
+@media (max-width: 640px) {
+  #headerMount {
+    background: linear-gradient(180deg, rgba(4, 11, 18, 0.98), rgba(4, 11, 18, 0.94));
+    box-shadow: none;
+  }
+
+  #headerMount header {
+    background: linear-gradient(180deg, rgba(6, 14, 22, 0.98), rgba(9, 19, 29, 0.96));
+    border-color: rgba(105, 154, 190, 0.18);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.28);
   }
 }
 

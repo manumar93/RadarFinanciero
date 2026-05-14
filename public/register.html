@@ -24,10 +24,10 @@
       <div class="panel-topline">
         <img src="/assets/images/logo.png" alt="RadarFinanciero" class="auth-brand-logo" />
       </div>
-      <h1>Empieza a invertir mejor</h1>
-      <p>Todo lo que necesitas para seguir tus inversiones: carteras, favoritos y datos de mercado en un solo lugar.</p>
+      <h1 style="text-align: center;">Empieza a invertir mejor</h1>
+      <p style="text-align: center;">Todo lo que necesitas para seguir tus inversiones: carteras, favoritos y datos de mercado en un solo lugar.</p>
 
-      <form id="registerForm">
+      <form id="registerForm" novalidate>
         <div class="grid-two">
           <label>
             Nombre completo
@@ -42,8 +42,15 @@
         <div class="grid-two">
           <label>
             Contrasena
-            <input id="passwordInput" type="password" autocomplete="new-password" minlength="6" required />
+            <input id="passwordInput" type="password" autocomplete="new-password" required />
           </label>
+          <label>
+            Confirmar contrasena
+            <input id="confirmPasswordInput" type="password" autocomplete="new-password" required />
+          </label>
+        </div>
+
+        <div class="grid-two">
           <label>
             Moneda preferida
             <input id="currencyInput" type="text" value="EUR" maxlength="3" required />

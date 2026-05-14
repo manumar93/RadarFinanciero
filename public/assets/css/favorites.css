@@ -314,6 +314,67 @@ button:disabled { opacity: 0.5; cursor: default; }
   .add-form { flex-direction: column; }
 }
 
+@media (max-width: 480px) {
+  body {
+    padding-top: 16px;
+  }
+
+  .page-shell {
+    width: calc(100vw - 16px);
+    margin: 12px auto 32px;
+  }
+
+  .card-head {
+    padding: 18px 14px 14px;
+  }
+
+  .card-head h1 {
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
+  }
+
+  .card-body {
+    padding: 16px 14px 20px;
+    gap: 14px;
+  }
+
+  /* Búsqueda apilada verticalmente */
+  .search-row {
+    flex-direction: column;
+  }
+
+  .search-row button {
+    width: 100%;
+  }
+
+  /* Tarjetas de favoritos: elementos apilados */
+  .item-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 14px;
+  }
+
+  .item-symbol {
+    min-width: unset;
+  }
+
+  .item-name {
+    white-space: normal;
+  }
+
+  /* Botón eliminar: ancho completo en móvil */
+  .btn-danger {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .card-topline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
 /* ── Detail modal ── */
 #detailModal {
   background: transparent;

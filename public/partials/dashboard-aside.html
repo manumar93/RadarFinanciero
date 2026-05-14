@@ -207,31 +207,70 @@
   </div>
 </aside>
 <dialog id="logoutDialog" class="fixed inset-0 bg-transparent">
-  <div id="logoutDialogBackdrop" class="bg-black/60"></div>
+  <div
+    id="logoutDialogBackdrop"
+    style="position:fixed;inset:0;background:rgba(4,11,18,0.75);backdrop-filter:blur(6px);"
+  ></div>
   <div class="flex items-center justify-center p-4 bg-transparent">
     <div
-      class="w-full max-w-md rounded-2xl bg-gray-900 border border-gray-700 shadow-2xl overflow-hidden"
+      style="
+        width: min(420px, calc(100vw - 32px));
+        background: linear-gradient(160deg, #08131d, #0d2535 54%, #12334a);
+        border: 1px solid rgba(105, 154, 190, 0.22);
+        border-radius: 24px;
+        box-shadow: 0 32px 90px rgba(0,0,0,0.6);
+        overflow: hidden;
+      "
     >
-      <div class="p-5">
-        <p id="ConfirmModalTitle" class="text-base font-semibold text-white">
+      <div
+        style="
+          padding: 24px 24px 16px;
+          border-bottom: 1px solid rgba(110, 156, 191, 0.16);
+          background: radial-gradient(circle at 0% 0%, rgba(22,242,165,0.07), transparent 50%);
+        "
+      >
+        <p id="ConfirmModalTitle" style="margin:0;font-size:1rem;font-weight:700;color:#eef7ff;">
           ¿Cerrar sesión?
         </p>
-        <p id="ConfirmModalText" class="text-sm text-gray-300 mt-2">
+        <p id="ConfirmModalText" style="margin:6px 0 0;font-size:0.875rem;color:#93a8bb;">
           Se le devolverá al login.
         </p>
       </div>
-      <div class="px-5 pb-5 flex items-center justify-end gap-2">
+      <div style="padding: 16px 24px 24px; display:flex; justify-content:flex-end; gap:10px;">
         <button
           type="button"
           id="logoutCancel"
-          class="px-4 py-2 rounded-xl bg-gray-800 hover:bg-gray-700 text-white text-sm"
+          style="
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(110,156,191,0.2);
+            color: #93a8bb;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+          "
+          onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.color='#eef7ff';"
+          onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='#93a8bb';"
         >
           Cancelar
         </button>
         <button
           type="button"
           id="logoutOk"
-          class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-sm font-medium"
+          style="
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #7f1d1d, #991b1b);
+            border: 1px solid rgba(239,68,68,0.25);
+            color: #fecaca;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.15s;
+          "
+          onmouseover="this.style.opacity='0.85';"
+          onmouseout="this.style.opacity='1';"
         >
           Cerrar sesión
         </button>
