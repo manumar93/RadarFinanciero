@@ -48,7 +48,6 @@ async function requireAdmin(req, res, next) {
 }
 
 module.exports = {
-  getBearerToken,
   requireAdmin,
   requireAuth,
 };
