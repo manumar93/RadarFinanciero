@@ -21,10 +21,6 @@ function compactText(value) {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function hasUsableName(value) {
-  return typeof value === "string" && value.trim() && value.trim() !== "-";
-}
-
 function normalizeText(input) {
   return compactText(input).toLowerCase();
 }
@@ -33,6 +29,5 @@ module.exports = {
   toNum,
   splitSymbols,
   compactText,
-  hasUsableName,
   normalizeText,
 };
