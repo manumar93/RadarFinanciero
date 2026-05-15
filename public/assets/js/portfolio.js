@@ -33,8 +33,34 @@ const addItemCategory = document.getElementById("addItemCategory");
 const addItemCancel = document.getElementById("addItemCancel");
 const addItemSave = document.getElementById("addItemSave");
 
+const confirmDialog = document.getElementById("confirmDialog");
+const confirmBackdrop = document.getElementById("confirmBackdrop");
+const confirmMessage = document.getElementById("confirmMessage");
+const confirmOk = document.getElementById("confirmOk");
+const confirmCancel = document.getElementById("confirmCancel");
+
 let currentPortfolioId = null;
 let pmSearchDebounce = null;
+
+function showConfirm(message) {
+  return new Promise((resolve) => {
+    confirmMessage.textContent = message;
+    confirmDialog.showModal();
+
+    function onOk() { cleanup(); confirmDialog.close(); resolve(true); }
+    function onNo() { cleanup(); confirmDialog.close(); resolve(false); }
+
+    function cleanup() {
+      confirmOk.removeEventListener("click", onOk);
+      confirmCancel.removeEventListener("click", onNo);
+      confirmBackdrop.removeEventListener("click", onNo);
+    }
+
+    confirmOk.addEventListener("click", onOk);
+    confirmCancel.addEventListener("click", onNo);
+    confirmBackdrop.addEventListener("click", onNo);
+  });
+}
 
 function showError(msg) {
   successBox.style.display = "none";
@@ -263,7 +289,7 @@ pmItemsList.addEventListener("click", async (e) => {
   const btn = e.target.closest("[data-action='remove-item']");
   if (!btn) return;
   const { itemId } = btn.dataset;
-  if (!confirm("¿Eliminar este instrumento de la cartera?")) return;
+  if (!await showConfirm("¿Eliminar este instrumento de la cartera?")) return;
   btn.disabled = true;
   try {
     await window.FundRadarAuth.removePortfolioItem(currentPortfolioId, itemId);
@@ -320,7 +346,7 @@ portfolioList.addEventListener("click", async (e) => {
   }
 
   if (action === "delete") {
-    if (!confirm("¿Eliminar esta cartera? Se perderán todas sus posiciones.")) return;
+    if (!await showConfirm("¿Eliminar esta cartera? Se perderán todas sus posiciones.")) return;
     btn.disabled = true;
     try {
       await window.FundRadarAuth.deletePortfolio(id);

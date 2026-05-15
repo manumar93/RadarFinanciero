@@ -553,6 +553,51 @@ button:disabled { opacity: 0.5; cursor: default; }
   color: #dceaf6;
 }
 
+/* ── Confirm dialog ── */
+#confirmDialog {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  max-width: none;
+  max-height: none;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #eef7ff;
+  z-index: 10050;
+}
+#confirmDialog:not([open]) { display: none; }
+#confirmDialog::backdrop { display: none; }
+
+.confirm-card {
+  position: relative;
+  width: min(400px, calc(100vw - 32px));
+  background: linear-gradient(160deg, #08131d, #0d2535);
+  border: 1px solid rgba(255, 114, 114, 0.28);
+  border-radius: 20px;
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.65);
+  padding: 28px 24px 24px;
+  display: grid;
+  gap: 6px;
+}
+
+.confirm-title {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--bad);
+}
+
+.confirm-message {
+  margin: 0;
+  font-size: 0.94rem;
+  color: #dceaf6;
+  line-height: 1.5;
+}
+
 @media (max-width: 680px) {
   .page-shell { width: min(100vw - 24px, 1040px); }
   .card-head, .card-body { padding-left: 20px; padding-right: 20px; }

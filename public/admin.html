@@ -103,6 +103,58 @@
     @media (max-width: 600px) {
       .col-id, .col-currency { display: none; }
     }
+
+    /* ── Confirm dialog ── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 11, 18, 0.72);
+      backdrop-filter: blur(6px);
+    }
+    #confirmDialog {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      max-width: none;
+      max-height: none;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #eef7ff;
+      z-index: 10050;
+    }
+    #confirmDialog:not([open]) { display: none; }
+    #confirmDialog::backdrop { display: none; }
+    .confirm-card {
+      position: relative;
+      width: min(400px, calc(100vw - 32px));
+      background: linear-gradient(160deg, #08131d, #0d2535);
+      border-radius: 20px;
+      box-shadow: 0 32px 90px rgba(0, 0, 0, 0.65);
+      padding: 28px 24px 24px;
+      display: grid;
+      gap: 6px;
+    }
+    .confirm-title {
+      margin: 0 0 4px;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+    .confirm-message {
+      margin: 0;
+      font-size: 0.94rem;
+      color: #dceaf6;
+      line-height: 1.5;
+    }
+    .confirm-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
@@ -113,8 +165,8 @@
           <span class="profile-kicker">Admin</span>
           <span class="profile-status">Solo administradores</span>
         </div>
-        <h1>Panel de usuarios</h1>
-        <p>Lista de todas las cuentas registradas en RadarFinanciero.</p>
+        <h1 style="text-align:center;">Panel de usuarios</h1>
+        <p style="text-align:center;margin-left:auto;margin-right:auto;">Lista de todas las cuentas registradas en RadarFinanciero.</p>
       </header>
 
       <div id="adminError"></div>
@@ -146,6 +198,19 @@
       </div>
     </section>
   </main>
+
+  <!-- Confirm dialog -->
+  <dialog id="confirmDialog">
+    <div id="confirmBackdrop" class="modal-backdrop"></div>
+    <div class="confirm-card" id="confirmCard">
+      <p id="confirmTitle" class="confirm-title"></p>
+      <p id="confirmMessage" class="confirm-message"></p>
+      <div class="confirm-actions">
+        <button id="confirmCancel" class="btn-role" style="background:rgba(255,255,255,0.06);color:#dceaf6;border:1px solid rgba(110,156,191,0.22);" type="button">Cancelar</button>
+        <button id="confirmOk" class="btn-role" type="button">Confirmar</button>
+      </div>
+    </div>
+  </dialog>
 
   <script src="/assets/js/auth-client.js"></script>
   <script src="/assets/js/admin.js"></script>

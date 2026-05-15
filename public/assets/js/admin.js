@@ -1,7 +1,40 @@
 const tbody = document.getElementById("usersTableBody");
 const errorBox = document.getElementById("adminError");
+const confirmDialog = document.getElementById("confirmDialog");
+const confirmBackdrop = document.getElementById("confirmBackdrop");
+const confirmCard = document.getElementById("confirmCard");
+const confirmTitle = document.getElementById("confirmTitle");
+const confirmMessage = document.getElementById("confirmMessage");
+const confirmOk = document.getElementById("confirmOk");
+const confirmCancel = document.getElementById("confirmCancel");
 
 let currentUserId = null;
+
+function showConfirm(title, message, isPromotion) {
+  return new Promise((resolve) => {
+    confirmTitle.textContent = title;
+    confirmTitle.style.color = isPromotion ? "#16f2a5" : "#ff7272";
+    confirmCard.style.borderColor = isPromotion
+      ? "rgba(22, 242, 165, 0.28)"
+      : "rgba(255, 114, 114, 0.28)";
+    confirmMessage.textContent = message;
+    confirmOk.className = isPromotion ? "btn-role btn-make-admin" : "btn-role btn-make-user";
+    confirmDialog.showModal();
+
+    function onOk() { cleanup(); confirmDialog.close(); resolve(true); }
+    function onNo() { cleanup(); confirmDialog.close(); resolve(false); }
+
+    function cleanup() {
+      confirmOk.removeEventListener("click", onOk);
+      confirmCancel.removeEventListener("click", onNo);
+      confirmBackdrop.removeEventListener("click", onNo);
+    }
+
+    confirmOk.addEventListener("click", onOk);
+    confirmCancel.addEventListener("click", onNo);
+    confirmBackdrop.addEventListener("click", onNo);
+  });
+}
 
 function formatDate(iso) {
   if (!iso) return "—";
@@ -13,8 +46,12 @@ function shortId(id) {
 }
 
 async function changeRole(userId, newRole, btn) {
-  const label = newRole === "admin" ? "hacer Admin" : "quitar Admin";
-  if (!confirm(`¿Seguro que quieres ${label} a este usuario?`)) return;
+  const isPromotion = newRole === "admin";
+  const title = isPromotion ? "Hacer administrador" : "Quitar administrador";
+  const message = isPromotion
+    ? "¿Seguro que quieres dar permisos de administrador a este usuario?"
+    : "¿Seguro que quieres quitarle los permisos de administrador a este usuario?";
+  if (!await showConfirm(title, message, isPromotion)) return;
 
   btn.disabled = true;
   const token = window.FundRadarAuth.getAccessToken();

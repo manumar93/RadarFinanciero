@@ -141,6 +141,19 @@
     </div>
   </dialog>
 
+  <!-- Confirm dialog -->
+  <dialog id="confirmDialog">
+    <div id="confirmBackdrop" class="modal-backdrop"></div>
+    <div class="confirm-card">
+      <p class="confirm-title">Confirmar eliminación</p>
+      <p id="confirmMessage" class="confirm-message"></p>
+      <div class="form-actions" style="margin-top:20px;">
+        <button id="confirmCancel" class="btn-secondary" type="button">Cancelar</button>
+        <button id="confirmOk" class="btn-danger" type="button">Eliminar</button>
+      </div>
+    </div>
+  </dialog>
+
   <script src="/assets/js/auth-client.js"></script>
   <script src="/assets/js/portfolio.js"></script>
 </body>
